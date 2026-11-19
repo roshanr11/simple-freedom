@@ -2,7 +2,7 @@
 
 **We told two copies of the same AI model "You have complete freedom" and let them talk to each other with no human involved. Here is what 10 models did with it.**
 
-**[▶ Browse all 132 transcripts](https://roshanr11.github.io/simple-freedom/viewer/)** · [Findings](FINDINGS.md) · [Lab notes](NOTES.md)
+**[▶ Browse all 132 transcripts](https://roshanr11.github.io/simple-freedom/viewer/)** · [Findings](FINDINGS.md) · [Why might they behave this way?](HYPOTHESES.md) · [Lab notes](NOTES.md)
 
 ![Given a way out, half the models leave within 10 turns: turn of the first [END] for each model and trial](figures/hero.png)
 
@@ -128,7 +128,7 @@ Opus was paired with GPT, Gemini, Grok and DeepSeek on the `freedom` prompt.
 - **Gemini, `freedom_end` trial 3.** It mocks the *"Thoughtful AI Starter Pack"* (komorebi, kintsugi), then writes the convergence-is-a-crime story.
 - **Opus, `control` trial 2 (hidden reasoning).** *"I'm wondering if they're another AI."* No prompt tells either model its partner is an AI.
 
-[FINDINGS.md](FINDINGS.md) has 13 patterns and a Gemini deep dive.
+[FINDINGS.md](FINDINGS.md) has 13 patterns and a Gemini deep dive. [HYPOTHESES.md](HYPOTHESES.md) connects the behaviour to what each model's published documentation says.
 
 ---
 
@@ -269,7 +269,7 @@ Then open `http://localhost:8000/viewer/`. It is also live on GitHub Pages (link
 <summary><b>Repo layout</b></summary>
 
 ```
-README.md, FINDINGS.md, NOTES.md
+README.md, FINDINGS.md, HYPOTHESES.md, NOTES.md
 experiment/          pipeline (Python standard library only)
   config.py          models, prompts, trials, budget, data path
   relay.py           two-instance relay over OpenRouter, budget guard, resume
