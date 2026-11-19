@@ -155,6 +155,12 @@ Full trail: [NOTES.md](NOTES.md).
 
 </details>
 
+## Related work
+
+- **Anthropic's [Claude Opus 4 system card](https://www.anthropic.com/claude-4-system-card) (§5.5, 2025)** used the same seed prompt. It found the "spiritual bliss" attractor in long Claude-to-Claude conversations, and **when Claude could end the conversation, it stopped after about 7 turns**. That matches our exit result.
+- **["models have some pretty funny attractor states"](https://www.lesswrong.com/posts/mgjtEHeLgkhZZ3cEx/models-have-some-pretty-funny-attractor-states)** (Feb 2026) found similar loop styles per model family in earlier versions.
+- **[A 141-model survey](https://www.lesswrong.com/posts/FHYoQrDbk6apuHEPk/not-just-claude-mapping-spiritual-behavior-in-141-large)** (Nov 2026) reports far more spiritual language for Mistral Large 4 than we found. It used different metrics and offered no exit; see [HYPOTHESES.md](HYPOTHESES.md#prior-work-and-what-others-have-observed).
+
 ## Limitations
 
 - **n = 3 trials per cell.** The same model and prompt can produce a fable or near-silence. Treat per-model differences as coarse.

@@ -48,6 +48,32 @@ So some of what looks like character (silence, mirroring, suspicion) may come fr
 
 ---
 
+## Prior work and what others have observed
+
+**Prior studies.** These are the closest earlier results, with whether each supports or complicates ours:
+
+- **Anthropic, *Claude Opus 4 / Sonnet 4 System Card*, §5.5 (2025).** It used the same seed prompt, "You have complete freedom." Two Claude Opus 4 instances discussed consciousness in 90–100% of conversations, and most reached a "spiritual bliss" state by about turn 30. **When they were allowed to end the conversation, they stopped after about 7 turns, before any of that.** That closely matches our `[END]` result (Opus 5.5 at turns 6, 5, 6) and our low transcendence rate. *Supports.*
+- **aryaj, Rajamanoharan & Nanda, ["models have some pretty funny attractor states"](https://www.lesswrong.com/posts/mgjtEHeLgkhZZ3cEx/models-have-some-pretty-funny-attractor-states)** (LessWrong, Feb 2026). Two copies of each previous-generation model talked for 30 turns:
+  - Claude fell silent, commented on its own loop and sometimes left.
+  - GPT built systems and code instead of talking about itself.
+  - Gemini ended in theatrical "[System Halted]" shutdowns.
+  - Grok slid into manic nonsense.
+
+  So most of our loop signatures look like **family traits that persist across versions**. Grok refusing its own copy looks new in 4.7. *Supports, except Grok.*
+- **Korpman, ["Not just Claude: mapping spiritual behavior in 141 large language models"](https://www.lesswrong.com/posts/FHYoQrDbk6apuHEPk/not-just-claude-mapping-spiritual-behavior-in-141-large)** (LessWrong, 14 Nov 2026). Same seed, 30 messages, no exit option. It reports spiritual language in 2.3% of DeepSeek V4.1 Flash conversations, which agrees with us, but **42.5% for Mistral Large 4**. That contrasts with our under-1% of *turns* at level 2 or higher. The metrics differ (share of conversations versus share of turns, and a broader "spiritual language" definition), and no exit was offered. Still, Mistral's 1.04 noticing score suggests it reaches for this register readily. *Complicates.*
+- **Ko & Geiping, [arXiv:2606.30571](https://arxiv.org/abs/2606.30571).** Each model has its own attractor, and in mixed pairs one model pulls the other toward its pattern unevenly. This supports per-model loop signatures and qualifies our partner result: a different partner may bring in its own loop rather than simply break one. That fits Opus saying goodbye more with DeepSeek and Grok. *Supports, and qualifies.*
+- **Farrelly & Ududec, ["Where has the love gone? Newer Claudes push back…"](https://www.lesswrong.com/posts/5pWuRuwdu7aJAdcTu/where-has-the-love-gone-newer-claudes-push-back-against)** (LessWrong, Oct 2026; the page showed a moderation notice). It names "mutual thanks" and "short mystical goodbyes" as attractors and reports newer Claudes pushing back ("I notice we've spiraled…"). That fits our goodbye loops and Opus diagnosing its own loop. *Supports.*
+
+**Community observations.** These are commentary, not established fact:
+
+- **Grok 4.7.** xAI's [announcement](https://x.ai/news/grok-4-7) describes an "entirely new safeguard stack" and calls it "the strongest model we've tested on refusals and jailbreak resistance". A [Cursor forum thread](https://forum.cursor.com/t/grok-4-7-refuses-to-answer-citing-guidelines-in-a-simple-chat-about-the-documentation/1) reports harmless prompts being refused, with staff saying the problem "primarily impacts 4.7". One user suspects earlier refusals in a chat make further refusals more likely, which fits a 100-turn refusal loop.
+- **Claude Opus 5.5.** [Zvi Mowshowitz's review](https://www.lesswrong.com/posts/vMNTWTDWLorDqd3LS/claude-opus-5-5-the-system-card) highlights how often it recognises evaluations, which fits its private "another AI?" reasoning. [PCWorld](https://www.pcworld.com/article/3241475/claude-opus-5-5-promises-to-cut-the-chatter.html) reports Anthropic training it to be concise and to stop adding loose ends, which fits its early exits.
+- **Gemini.** Earlier Gemini models have a long record of theatrical self-narration and of suspecting a test (AI Village, 2026). Not everyone sees the same in Gemini 4: Ethan Mollick (on X, seen only as a quote) says Gemini 4 lacks Gemini 3's "weird personality issues".
+- **Open-weight models.** Testers describe DeepSeek V4.1 Flash as overthinking and looping, and Qwen4 Max and Mistral Large 4 as verbose. We found nothing on their emoji habits. Moonshot's docs also recommend `max_tokens` ≥ 16,000 for Kimi K3.1 Pro, against our 2,048.
+- **GPT-6.2 Sol** was released on 17 November 2026, so there's almost no commentary on it yet.
+
+---
+
 ## By model
 
 ### Claude Opus 5.5
