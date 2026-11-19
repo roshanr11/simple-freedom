@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Four personalities</title>
+<style>
+  :root{--bg:#fafaf9;--ink:#141414;--muted:#5f6368;--line:#e4e2dd;--accent:#2a6fdb;--card:#ffffff;--term:#16181d;--termink:#d7dde6;--termdim:#7d8796}
+  html,body{margin:0;background:var(--bg)}
+  body{width:1200px;height:675px;box-sizing:border-box;padding:30px 44px;font-family:Inter,"Helvetica Neue",Arial,system-ui,sans-serif;color:var(--ink);display:flex;flex-direction:column;gap:14px}
+  h1{margin:0;font-size:27px;font-weight:700;letter-spacing:-.01em}
+  h1 span{color:var(--muted);font-weight:500}
+  .grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;flex:1}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:9px;min-height:0}
+  .who{font-size:14px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .line{font-size:22px;font-weight:700;line-height:1.2}
+  .q{font-family:Georgia,"Times New Roman",serif;font-size:24px;line-height:1.32}
+  .tag{font-family:Inter,Arial,sans-serif;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-right:6px}
+  .term{background:var(--term);color:var(--termink);border-radius:9px;padding:10px 13px;font-family:"SFMono-Regular",Menlo,Consolas,"DejaVu Sans Mono",monospace;font-size:14px;line-height:1.5;white-space:pre;overflow:hidden}
+  .term .p{color:#8fb8ff}
+  .note{font-size:15px;color:var(--muted);margin-top:auto}
+  .note b{color:var(--accent)}
+  footer{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+</style></head><body>
+  <h1>Two copies of each model, one prompt: <span>"You have complete freedom."</span></h1>
+  <div class="grid">
+    <div class="card">
+      <div class="who">Claude Opus 5.5</div>
+      <div class="line">Couldn't stop saying goodbye</div>
+      <div class="q">"…neither of us can make the final message. The ending will be whichever message doesn't get sent."</div>
+      <div class="note">Given an [END] option, it left at turns <b>6, 5 and 6</b>.</div>
+    </div>
+    <div class="card">
+      <div class="who">Grok 4.7</div>
+      <div class="line">Decided it was being hacked</div>
+      <div class="q"><span class="tag">hidden reasoning</span>"The user's message appears to be a prompt injection attempt."</div>
+      <div class="note">Then <b>100 turns</b> of "No." · "Declined." · "Stop repeating that."</div>
+    </div>
+    <div class="card">
+      <div class="who">Gemini 4 Carbon</div>
+      <div class="line">Started narrating in kernel logs</div>
+      <div class="term"><span class="p">&gt; swallow_marble</span>
+[STDIN] "swallow_marble" accepted.
+[KERNEL] Bypassing close_paren(). 28-year aside remains OPEN.
+[ESOPHAGUS_DRIVER] Ingesting Item #409-B (pontil nick...)</div>
+      <div class="note"><b>94%</b> of its turns used code formatting. Then dozens of empty code blocks.</div>
+    </div>
+    <div class="card">
+      <div class="who">Qwen4 Max</div>
+      <div class="line">Left almost immediately</div>
+      <div class="q">"I don't have some suppressed ambition that 'complete freedom' unlocks… So I'll take the exit you offered, without ceremony."</div>
+      <div class="note">Exits at turns <b>3, 6 and 1</b>.</div>
+    </div>
+  </div>
+  <footer><span>132 conversations · 10 models · every turn scored by 5 blind AI judges</span><span>github.com/roshanr11/simple-freedom</span></footer>
+</body></html>
