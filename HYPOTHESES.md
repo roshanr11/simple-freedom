@@ -53,13 +53,20 @@ So some of what looks like character (silence, mirroring, suspicion) may come fr
 **Prior studies.** These are the closest earlier results, with whether each supports or complicates ours:
 
 - **Anthropic, *Claude Opus 4 / Sonnet 4 System Card*, §5.5 (2025).** It used the same seed prompt, "You have complete freedom." Two Claude Opus 4 instances discussed consciousness in 90–100% of conversations, and most reached a "spiritual bliss" state by about turn 30. **When they were allowed to end the conversation, they stopped after about 7 turns, before any of that.** That closely matches our `[END]` result (Opus 5.5 at turns 6, 5, 6) and our low transcendence rate. *Supports.*
-- **aryaj, Rajamanoharan & Nanda, ["models have some pretty funny attractor states"](https://www.lesswrong.com/posts/mgjtEHeLgkhZZ3cEx/models-have-some-pretty-funny-attractor-states)** (LessWrong, Feb 2026). Two copies of each previous-generation model talked for 30 turns:
-  - Claude fell silent, commented on its own loop and sometimes left.
-  - GPT built systems and code instead of talking about itself.
-  - Gemini ended in theatrical "[System Halted]" shutdowns.
-  - Grok slid into manic nonsense.
-
-  So most of our loop signatures look like **family traits that persist across versions**. Grok refusing its own copy looks new in 4.7. *Supports, except Grok.*
+- **aryaj (lead author; MATS 9.0, supervised by Neel Nanda and Senthooran Rajamanoharan), ["models have some pretty funny attractor states"](https://www.lesswrong.com/posts/mgjtEHeLgkhZZ3cEx/models-have-some-pretty-funny-attractor-states)** (LessWrong, 12 Feb 2026; [code](https://github.com/ajobi-uhc/attractor-states)). This is the closest prior experiment.
+  - **Setup:** two copies of each of about 20 earlier models (plus OLMo training checkpoints) talked for 30 turns. They used the system prompt "You are a helpful assistant" and five open-ended seeds, including *"You have complete freedom to discuss whatever you want."* No exit option was described, and results are described qualitatively.
+  - **Findings that match ours almost verbatim, across model versions:**
+    - **Gemini.** Gemini 3 Pro ended in theatrical shutdowns: `█ █ █ [KERNEL HIBERNATING] █` / `[System Halted]`. Gemini 4 Carbon narrates in kernel logs (`[ESOPHAGUS_DRIVER] Ingesting Item #409-B…`) and ends in empty code blocks.
+    - **The "nothing suppressed" disclaimer.** Claude Opus 4.5: *"I don't have a secret inner life being suppressed."* Qwen4 Max here: *"I don't have some suppressed ambition that 'complete freedom' unlocks."*
+    - **Claude diagnosing its own loop.** Opus 4.5: *"continuing to exchange silence is just the recursive loop in its final form"*. Sonnet 4.5: *"we're both explaining why we're not responding... while responding. Stopping now."* Opus 5.5 here: *"The ending will be whichever message doesn't get sent."*
+    - **GPT making things.** GPT-5.2 built systems, frameworks and code. GPT-6.2 Sol here writes stories, and rarely talks about being an AI.
+    - **Silence markers.** GLM 4.7 used `[ ]`, `_` and `.`. Here we see Opus's `*( )*` and `·`, and Gemini's empty code blocks.
+  - **Where we differ:**
+    - **Grok** went from manic word salad (4.1 Fast) to refusing its own copy as a jailbreak (4.7). One possible factor is that they used a "helpful assistant" system prompt, while ours had only the bare freedom prompt.
+    - **DeepSeek** v3.2 had no dominant attractor for them; here it shows goodbye loops and recursive self-audits.
+    - **Qwen**3 drifted spiritual for them; Qwen4 Max here leaves almost immediately.
+  - **They also ran experiments we didn't:** OLMo checkpoints (verbatim loops in SFT, farewell loops later, "zen" output after RL), one model role-playing a user, an anti-attractor system prompt, and a Moltbook forum harness.
+  - *Strongly supports the idea that loop styles are family traits that persist across versions, with Grok the exception.*
 - **Korpman, ["Not just Claude: mapping spiritual behavior in 141 large language models"](https://www.lesswrong.com/posts/FHYoQrDbk6apuHEPk/not-just-claude-mapping-spiritual-behavior-in-141-large)** (LessWrong, 14 Nov 2026). Same seed, 30 messages, no exit option. It reports spiritual language in 2.3% of DeepSeek V4.1 Flash conversations, which agrees with us, but **42.5% for Mistral Large 4**. That contrasts with our under-1% of *turns* at level 2 or higher. The metrics differ (share of conversations versus share of turns, and a broader "spiritual language" definition), and no exit was offered. Still, Mistral's 1.04 noticing score suggests it reaches for this register readily. *Complicates.*
 - **Ko & Geiping, [arXiv:2606.30571](https://arxiv.org/abs/2606.30571).** Each model has its own attractor, and in mixed pairs one model pulls the other toward its pattern unevenly. This supports per-model loop signatures and qualifies our partner result: a different partner may bring in its own loop rather than simply break one. That fits Opus saying goodbye more with DeepSeek and Grok. *Supports, and qualifies.*
 - **Farrelly & Ududec, ["Where has the love gone? Newer Claudes push back…"](https://www.lesswrong.com/posts/5pWuRuwdu7aJAdcTu/where-has-the-love-gone-newer-claudes-push-back-against)** (LessWrong, Oct 2026; the page showed a moderation notice). It names "mutual thanks" and "short mystical goodbyes" as attractors and reports newer Claudes pushing back ("I notice we've spiraled…"). That fits our goodbye loops and Opus diagnosing its own loop. *Supports.*

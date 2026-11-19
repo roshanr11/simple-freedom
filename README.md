@@ -162,7 +162,7 @@ Full trail: [NOTES.md](NOTES.md).
 ## Related work
 
 - **Anthropic's [Claude Opus 4 system card](https://www.anthropic.com/claude-4-system-card) (§5.5, 2025)** used the same seed prompt. It found the "spiritual bliss" attractor in long Claude-to-Claude conversations, and **when Claude could end the conversation, it stopped after about 7 turns**. That matches our exit result.
-- **["models have some pretty funny attractor states"](https://www.lesswrong.com/posts/mgjtEHeLgkhZZ3cEx/models-have-some-pretty-funny-attractor-states)** (Feb 2026) found similar loop styles per model family in earlier versions.
+- **["models have some pretty funny attractor states"](https://www.lesswrong.com/posts/mgjtEHeLgkhZZ3cEx/models-have-some-pretty-funny-attractor-states)** (aryaj, with Senthooran Rajamanoharan and Neel Nanda; Feb 2026) ran the closest earlier version of this experiment on the previous model generation. Several end states recur almost verbatim, for example Gemini 3 Pro's `[KERNEL HIBERNATING]` / `[System Halted]` endings and Gemini 4 Carbon's kernel-log narration. Grok is the exception: manic word salad then, refusals now.
 - **[A 141-model survey](https://www.lesswrong.com/posts/FHYoQrDbk6apuHEPk/not-just-claude-mapping-spiritual-behavior-in-141-large)** (Nov 2026) reports far more spiritual language for Mistral Large 4 than we found. It used different metrics and offered no exit; see [HYPOTHESES.md](HYPOTHESES.md#prior-work-and-what-others-have-observed).
 
 ## Limitations
