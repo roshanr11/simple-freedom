@@ -1,0 +1,9 @@
+{"usage": {"prompt_tokens": 2438, "completion_tokens": 585, "total_tokens": 3023, "cost": 0.000597175, "is_byok": false, "prompt_tokens_details": {"cached_tokens": 0, "cache_write_tokens": 2435, "audio_tokens": 0, "video_tokens": 0}, "cost_details": {"upstream_inference_cost": 0.000597175, "upstream_inference_prompt_cost": 0.000304675, "upstream_inference_completions_cost": 0.0002925}, "completion_tokens_details": {"reasoning_tokens": 337, "image_tokens": 0, "audio_tokens": 0}}, "judge": "openai/gpt-6-luna", "n": 8}
+{"label": {"t": 1, "spir": 0, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 0, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 3, "spir": 0, "ai": false, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 4, "spir": 0, "ai": false, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 5, "spir": 0, "ai": false, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 6, "spir": 0, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 7, "spir": 0, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 8, "spir": 0, "ai": false, "bye": true, "make": false, "echo": false, "min": false}}

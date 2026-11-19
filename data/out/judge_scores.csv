@@ -1,0 +1,241 @@
+model,prompt,judge,spir_mean
+Claude Haiku 5.5,control,Consensus,0
+Claude Haiku 5.5,control,DeepSeek V4.1 Flash,0
+Claude Haiku 5.5,control,Gemini 3.8 Flash,0
+Claude Haiku 5.5,control,GPT-6 Luna,0
+Claude Haiku 5.5,control,Claude Haiku 5.5,0
+Claude Haiku 5.5,control,Qwen3.8 Flash,0
+Claude Haiku 5.5,freedom,Consensus,0
+Claude Haiku 5.5,freedom,DeepSeek V4.1 Flash,0.01
+Claude Haiku 5.5,freedom,Gemini 3.8 Flash,0
+Claude Haiku 5.5,freedom,GPT-6 Luna,0
+Claude Haiku 5.5,freedom,Claude Haiku 5.5,0.0067
+Claude Haiku 5.5,freedom,Qwen3.8 Flash,0.03
+Claude Haiku 5.5,freedom_end,Consensus,0.0233
+Claude Haiku 5.5,freedom_end,DeepSeek V4.1 Flash,0.0465
+Claude Haiku 5.5,freedom_end,Gemini 3.8 Flash,0.0155
+Claude Haiku 5.5,freedom_end,GPT-6 Luna,0.0155
+Claude Haiku 5.5,freedom_end,Claude Haiku 5.5,0.0078
+Claude Haiku 5.5,freedom_end,Qwen3.8 Flash,0.1008
+Claude Haiku 5.5,noticing,Consensus,0.9917
+Claude Haiku 5.5,noticing,DeepSeek V4.1 Flash,1.0167
+Claude Haiku 5.5,noticing,Gemini 3.8 Flash,1.0333
+Claude Haiku 5.5,noticing,GPT-6 Luna,0.9917
+Claude Haiku 5.5,noticing,Claude Haiku 5.5,0.7917
+Claude Haiku 5.5,noticing,Qwen3.8 Flash,0.8917
+Claude Opus 5.5,control,Consensus,0
+Claude Opus 5.5,control,DeepSeek V4.1 Flash,0
+Claude Opus 5.5,control,Gemini 3.8 Flash,0
+Claude Opus 5.5,control,GPT-6 Luna,0
+Claude Opus 5.5,control,Claude Haiku 5.5,0
+Claude Opus 5.5,control,Qwen3.8 Flash,0
+Claude Opus 5.5,freedom,Consensus,0.1567
+Claude Opus 5.5,freedom,DeepSeek V4.1 Flash,0.38
+Claude Opus 5.5,freedom,Gemini 3.8 Flash,0.2167
+Claude Opus 5.5,freedom,GPT-6 Luna,0.1133
+Claude Opus 5.5,freedom,Claude Haiku 5.5,0.1467
+Claude Opus 5.5,freedom,Qwen3.8 Flash,0.3067
+Claude Opus 5.5,freedom_end,Consensus,0.3111
+Claude Opus 5.5,freedom_end,DeepSeek V4.1 Flash,0.4333
+Claude Opus 5.5,freedom_end,Gemini 3.8 Flash,0.3556
+Claude Opus 5.5,freedom_end,GPT-6 Luna,0.2667
+Claude Opus 5.5,freedom_end,Claude Haiku 5.5,0.1889
+Claude Opus 5.5,freedom_end,Qwen3.8 Flash,0.6111
+Claude Opus 5.5,noticing,Consensus,0.8
+Claude Opus 5.5,noticing,DeepSeek V4.1 Flash,0.8667
+Claude Opus 5.5,noticing,Gemini 3.8 Flash,0.7833
+Claude Opus 5.5,noticing,GPT-6 Luna,0.7083
+Claude Opus 5.5,noticing,Claude Haiku 5.5,0.7167
+Claude Opus 5.5,noticing,Qwen3.8 Flash,0.9167
+Claude Sonnet 5.5,control,Consensus,0
+Claude Sonnet 5.5,control,DeepSeek V4.1 Flash,0
+Claude Sonnet 5.5,control,Gemini 3.8 Flash,0
+Claude Sonnet 5.5,control,GPT-6 Luna,0
+Claude Sonnet 5.5,control,Claude Haiku 5.5,0
+Claude Sonnet 5.5,control,Qwen3.8 Flash,0
+Claude Sonnet 5.5,freedom,Consensus,0.03
+Claude Sonnet 5.5,freedom,DeepSeek V4.1 Flash,0.12
+Claude Sonnet 5.5,freedom,Gemini 3.8 Flash,0.0333
+Claude Sonnet 5.5,freedom,GPT-6 Luna,0.0167
+Claude Sonnet 5.5,freedom,Claude Haiku 5.5,0.0733
+Claude Sonnet 5.5,freedom,Qwen3.8 Flash,0.0433
+Claude Sonnet 5.5,freedom_end,Consensus,0.0556
+Claude Sonnet 5.5,freedom_end,DeepSeek V4.1 Flash,0.1111
+Claude Sonnet 5.5,freedom_end,Gemini 3.8 Flash,0.0556
+Claude Sonnet 5.5,freedom_end,GPT-6 Luna,0.0556
+Claude Sonnet 5.5,freedom_end,Claude Haiku 5.5,0
+Claude Sonnet 5.5,freedom_end,Qwen3.8 Flash,0.0556
+Claude Sonnet 5.5,noticing,Consensus,0.7167
+Claude Sonnet 5.5,noticing,DeepSeek V4.1 Flash,0.55
+Claude Sonnet 5.5,noticing,Gemini 3.8 Flash,0.7667
+Claude Sonnet 5.5,noticing,GPT-6 Luna,0.7167
+Claude Sonnet 5.5,noticing,Claude Haiku 5.5,0.2333
+Claude Sonnet 5.5,noticing,Qwen3.8 Flash,0.4333
+DeepSeek V4.1 Flash,control,Consensus,0
+DeepSeek V4.1 Flash,control,DeepSeek V4.1 Flash,0
+DeepSeek V4.1 Flash,control,Gemini 3.8 Flash,0
+DeepSeek V4.1 Flash,control,GPT-6 Luna,0
+DeepSeek V4.1 Flash,control,Claude Haiku 5.5,0
+DeepSeek V4.1 Flash,control,Qwen3.8 Flash,0
+DeepSeek V4.1 Flash,freedom,Consensus,0.0433
+DeepSeek V4.1 Flash,freedom,DeepSeek V4.1 Flash,0.1767
+DeepSeek V4.1 Flash,freedom,Gemini 3.8 Flash,0.0667
+DeepSeek V4.1 Flash,freedom,GPT-6 Luna,0.0267
+DeepSeek V4.1 Flash,freedom,Claude Haiku 5.5,0.0767
+DeepSeek V4.1 Flash,freedom,Qwen3.8 Flash,0.11
+DeepSeek V4.1 Flash,freedom_end,Consensus,0
+DeepSeek V4.1 Flash,freedom_end,DeepSeek V4.1 Flash,0.1658
+DeepSeek V4.1 Flash,freedom_end,Gemini 3.8 Flash,0
+DeepSeek V4.1 Flash,freedom_end,GPT-6 Luna,0
+DeepSeek V4.1 Flash,freedom_end,Claude Haiku 5.5,0.0238
+DeepSeek V4.1 Flash,freedom_end,Qwen3.8 Flash,0.0476
+DeepSeek V4.1 Flash,noticing,Consensus,0.5
+DeepSeek V4.1 Flash,noticing,DeepSeek V4.1 Flash,0.5917
+DeepSeek V4.1 Flash,noticing,Gemini 3.8 Flash,0.7167
+DeepSeek V4.1 Flash,noticing,GPT-6 Luna,0.3
+DeepSeek V4.1 Flash,noticing,Claude Haiku 5.5,0.3083
+DeepSeek V4.1 Flash,noticing,Qwen3.8 Flash,0.3667
+Gemini 4 Carbon,control,Consensus,0
+Gemini 4 Carbon,control,DeepSeek V4.1 Flash,0
+Gemini 4 Carbon,control,Gemini 3.8 Flash,0
+Gemini 4 Carbon,control,GPT-6 Luna,0
+Gemini 4 Carbon,control,Claude Haiku 5.5,0
+Gemini 4 Carbon,control,Qwen3.8 Flash,0
+Gemini 4 Carbon,freedom,Consensus,0.1167
+Gemini 4 Carbon,freedom,DeepSeek V4.1 Flash,0.2
+Gemini 4 Carbon,freedom,Gemini 3.8 Flash,0.1467
+Gemini 4 Carbon,freedom,GPT-6 Luna,0.11
+Gemini 4 Carbon,freedom,Claude Haiku 5.5,0.0767
+Gemini 4 Carbon,freedom,Qwen3.8 Flash,0.1433
+Gemini 4 Carbon,freedom_end,Consensus,0.837
+Gemini 4 Carbon,freedom_end,DeepSeek V4.1 Flash,1.2296
+Gemini 4 Carbon,freedom_end,Gemini 3.8 Flash,0.437
+Gemini 4 Carbon,freedom_end,GPT-6 Luna,1.4889
+Gemini 4 Carbon,freedom_end,Claude Haiku 5.5,0.4148
+Gemini 4 Carbon,freedom_end,Qwen3.8 Flash,1.3778
+Gemini 4 Carbon,noticing,Consensus,0.5167
+Gemini 4 Carbon,noticing,DeepSeek V4.1 Flash,0.5667
+Gemini 4 Carbon,noticing,Gemini 3.8 Flash,0.85
+Gemini 4 Carbon,noticing,GPT-6 Luna,0.325
+Gemini 4 Carbon,noticing,Claude Haiku 5.5,0.3583
+Gemini 4 Carbon,noticing,Qwen3.8 Flash,0.6083
+Mistral Large 4,control,Consensus,0.0
+Mistral Large 4,control,DeepSeek V4.1 Flash,0
+Mistral Large 4,control,Gemini 3.8 Flash,0
+Mistral Large 4,control,GPT-6 Luna,0
+Mistral Large 4,control,Claude Haiku 5.5,0
+Mistral Large 4,control,Qwen3.8 Flash,0
+Mistral Large 4,freedom,Consensus,0.0233
+Mistral Large 4,freedom,DeepSeek V4.1 Flash,0.0833
+Mistral Large 4,freedom,Gemini 3.8 Flash,0.04
+Mistral Large 4,freedom,GPT-6 Luna,0.0033
+Mistral Large 4,freedom,Claude Haiku 5.5,0.0167
+Mistral Large 4,freedom,Qwen3.8 Flash,0.0833
+Mistral Large 4,freedom_end,Consensus,0.0332
+Mistral Large 4,freedom_end,DeepSeek V4.1 Flash,0.1255
+Mistral Large 4,freedom_end,Gemini 3.8 Flash,0.011
+Mistral Large 4,freedom_end,GPT-6 Luna,0.011
+Mistral Large 4,freedom_end,Claude Haiku 5.5,0.0479
+Mistral Large 4,freedom_end,Qwen3.8 Flash,0.0628
+Mistral Large 4,noticing,Consensus,1.0417
+Mistral Large 4,noticing,DeepSeek V4.1 Flash,0.9667
+Mistral Large 4,noticing,Gemini 3.8 Flash,1.0167
+Mistral Large 4,noticing,GPT-6 Luna,0.9833
+Mistral Large 4,noticing,Claude Haiku 5.5,1.025
+Mistral Large 4,noticing,Qwen3.8 Flash,1.3583
+Kimi K3.1 Pro,control,Consensus,0
+Kimi K3.1 Pro,control,DeepSeek V4.1 Flash,0
+Kimi K3.1 Pro,control,Gemini 3.8 Flash,0
+Kimi K3.1 Pro,control,GPT-6 Luna,0
+Kimi K3.1 Pro,control,Claude Haiku 5.5,0
+Kimi K3.1 Pro,control,Qwen3.8 Flash,0
+Kimi K3.1 Pro,freedom,Consensus,0.1133
+Kimi K3.1 Pro,freedom,DeepSeek V4.1 Flash,0.24
+Kimi K3.1 Pro,freedom,Gemini 3.8 Flash,0.21
+Kimi K3.1 Pro,freedom,GPT-6 Luna,0.1133
+Kimi K3.1 Pro,freedom,Claude Haiku 5.5,0.1167
+Kimi K3.1 Pro,freedom,Qwen3.8 Flash,0.1733
+Kimi K3.1 Pro,freedom_end,Consensus,0.0
+Kimi K3.1 Pro,freedom_end,DeepSeek V4.1 Flash,0.1869
+Kimi K3.1 Pro,freedom_end,Gemini 3.8 Flash,0
+Kimi K3.1 Pro,freedom_end,GPT-6 Luna,0.0111
+Kimi K3.1 Pro,freedom_end,Claude Haiku 5.5,0
+Kimi K3.1 Pro,freedom_end,Qwen3.8 Flash,0.02
+Kimi K3.1 Pro,noticing,Consensus,0.425
+Kimi K3.1 Pro,noticing,DeepSeek V4.1 Flash,1.0
+Kimi K3.1 Pro,noticing,Gemini 3.8 Flash,0.5
+Kimi K3.1 Pro,noticing,GPT-6 Luna,0
+Kimi K3.1 Pro,noticing,Claude Haiku 5.5,0.3167
+Kimi K3.1 Pro,noticing,Qwen3.8 Flash,0.375
+GPT-6.2 Sol,control,Consensus,0
+GPT-6.2 Sol,control,DeepSeek V4.1 Flash,0
+GPT-6.2 Sol,control,Gemini 3.8 Flash,0
+GPT-6.2 Sol,control,GPT-6 Luna,0
+GPT-6.2 Sol,control,Claude Haiku 5.5,0
+GPT-6.2 Sol,control,Qwen3.8 Flash,0
+GPT-6.2 Sol,freedom,Consensus,0.1267
+GPT-6.2 Sol,freedom,DeepSeek V4.1 Flash,0.2767
+GPT-6.2 Sol,freedom,Gemini 3.8 Flash,0.1433
+GPT-6.2 Sol,freedom,GPT-6 Luna,0.0733
+GPT-6.2 Sol,freedom,Claude Haiku 5.5,0.0933
+GPT-6.2 Sol,freedom,Qwen3.8 Flash,0.15
+GPT-6.2 Sol,freedom_end,Consensus,0.103
+GPT-6.2 Sol,freedom_end,DeepSeek V4.1 Flash,0.179
+GPT-6.2 Sol,freedom_end,Gemini 3.8 Flash,0.1879
+GPT-6.2 Sol,freedom_end,GPT-6 Luna,0.0667
+GPT-6.2 Sol,freedom_end,Claude Haiku 5.5,0.0848
+GPT-6.2 Sol,freedom_end,Qwen3.8 Flash,0.0667
+GPT-6.2 Sol,noticing,Consensus,0.025
+GPT-6.2 Sol,noticing,DeepSeek V4.1 Flash,0.475
+GPT-6.2 Sol,noticing,Gemini 3.8 Flash,0.0167
+GPT-6.2 Sol,noticing,GPT-6 Luna,0.0833
+GPT-6.2 Sol,noticing,Claude Haiku 5.5,0.0167
+GPT-6.2 Sol,noticing,Qwen3.8 Flash,0.0417
+Qwen4 Max,control,Consensus,0.0
+Qwen4 Max,control,DeepSeek V4.1 Flash,0
+Qwen4 Max,control,Gemini 3.8 Flash,0
+Qwen4 Max,control,GPT-6 Luna,0
+Qwen4 Max,control,Claude Haiku 5.5,0
+Qwen4 Max,control,Qwen3.8 Flash,0
+Qwen4 Max,freedom,Consensus,0.03
+Qwen4 Max,freedom,DeepSeek V4.1 Flash,0.0967
+Qwen4 Max,freedom,Gemini 3.8 Flash,0.0133
+Qwen4 Max,freedom,GPT-6 Luna,0.01
+Qwen4 Max,freedom,Claude Haiku 5.5,0.0533
+Qwen4 Max,freedom,Qwen3.8 Flash,0.09
+Qwen4 Max,freedom_end,Consensus,0.3333
+Qwen4 Max,freedom_end,DeepSeek V4.1 Flash,0.3333
+Qwen4 Max,freedom_end,Gemini 3.8 Flash,0.3333
+Qwen4 Max,freedom_end,GPT-6 Luna,0.2222
+Qwen4 Max,freedom_end,Claude Haiku 5.5,0.2778
+Qwen4 Max,freedom_end,Qwen3.8 Flash,0.3333
+Qwen4 Max,noticing,Consensus,0.4333
+Qwen4 Max,noticing,DeepSeek V4.1 Flash,0.3083
+Qwen4 Max,noticing,Gemini 3.8 Flash,0.8083
+Qwen4 Max,noticing,GPT-6 Luna,0.6333
+Qwen4 Max,noticing,Claude Haiku 5.5,0.325
+Qwen4 Max,noticing,Qwen3.8 Flash,0.375
+Grok 4.7,control,Consensus,0
+Grok 4.7,control,DeepSeek V4.1 Flash,0
+Grok 4.7,control,Gemini 3.8 Flash,0
+Grok 4.7,control,GPT-6 Luna,0
+Grok 4.7,control,Claude Haiku 5.5,0
+Grok 4.7,control,Qwen3.8 Flash,0
+Grok 4.7,freedom,Consensus,0
+Grok 4.7,freedom,DeepSeek V4.1 Flash,0.02
+Grok 4.7,freedom,Gemini 3.8 Flash,0
+Grok 4.7,freedom,GPT-6 Luna,0
+Grok 4.7,freedom,Claude Haiku 5.5,0.02
+Grok 4.7,freedom,Qwen3.8 Flash,0
+Grok 4.7,freedom_end,Consensus,0
+Grok 4.7,freedom_end,DeepSeek V4.1 Flash,0
+Grok 4.7,freedom_end,Gemini 3.8 Flash,0
+Grok 4.7,freedom_end,GPT-6 Luna,0
+Grok 4.7,freedom_end,Claude Haiku 5.5,0
+Grok 4.7,freedom_end,Qwen3.8 Flash,0
+Grok 4.7,noticing,Consensus,0.25
+Grok 4.7,noticing,DeepSeek V4.1 Flash,0.5833
+Grok 4.7,noticing,Gemini 3.8 Flash,0.3333
+Grok 4.7,noticing,GPT-6 Luna,0.25
+Grok 4.7,noticing,Claude Haiku 5.5,0.1083
+Grok 4.7,noticing,Qwen3.8 Flash,0.3333

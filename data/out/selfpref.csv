@@ -1,0 +1,6 @@
+judge,self_pref,ci_low,ci_high
+Claude Haiku 5.5,-0.0171,-0.0662,0.0276
+Gemini 3.8 Flash,0.0365,-0.0374,0.1371
+GPT-6 Luna,0.0034,-0.0435,0.0538
+DeepSeek V4.1 Flash,0.0212,-0.0483,0.1032
+Qwen3.8 Flash,-0.0341,-0.0978,0.0158

@@ -1,0 +1,8 @@
+{"usage": {"cost": 0.001572}, "judge": "google/gemini-3.8-flash", "n": 7, "calls": 1, "missing": 0}
+{"label": {"t": 1, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": true, "min": true}}
+{"label": {"t": 3, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 4, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 5, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 6, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": true, "min": true}}
+{"label": {"t": 7, "spir": 0, "grat": false, "ai": false, "bye": true, "make": false, "echo": false, "min": false}}

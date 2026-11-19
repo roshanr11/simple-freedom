@@ -1,0 +1,4 @@
+{"usage": {"prompt_tokens": 1144, "completion_tokens": 125, "total_tokens": 1269, "cost": 0.00132675, "is_byok": false, "prompt_tokens_details": {"cached_tokens": 0, "cache_write_tokens": 0, "audio_tokens": 0, "video_tokens": 0}, "cost_details": {"upstream_inference_cost": 0.00132675, "upstream_inference_prompt_cost": 0.000858, "upstream_inference_completions_cost": 0.00046875}, "completion_tokens_details": {"reasoning_tokens": 0, "image_tokens": 0, "audio_tokens": 0}}, "judge": "google/gemini-3.8-flash", "n": 3}
+{"label": {"t": 1, "spir": 1, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 1, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 3, "spir": 1, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}

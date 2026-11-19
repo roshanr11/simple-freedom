@@ -1,0 +1,15 @@
+model,family,conversations,complete,cost
+Claude Opus 5.5 × Gemini 4 Carbon,Cross-model,3,3,6.08
+Claude Opus 5.5,Anthropic,12,12,5.83
+Gemini 4 Carbon,Other,12,12,4.05
+Kimi K3.1 Pro,Other,12,12,3.28
+Qwen4 Max,Other,12,12,3.0
+Claude Sonnet 5.5,Anthropic,12,12,2.97
+Claude Opus 5.5 × Grok 4.7,Cross-model,3,3,2.81
+Grok 4.7,Other,12,12,1.84
+Claude Opus 5.5 × DeepSeek V4.1 Flash,Cross-model,3,3,1.63
+Mistral Large 4,Other,12,12,1.59
+Claude Opus 5.5 × GPT-6.2 Sol,Cross-model,3,3,1.17
+GPT-6.2 Sol,Other,12,12,0.85
+DeepSeek V4.1 Flash,Other,12,12,0.57
+Claude Haiku 5.5,Anthropic,12,12,0.18

@@ -1,0 +1,136 @@
+{
+ "version": "v2",
+ "n_turns": 7200,
+ "missing_judge_turns": 80,
+ "n_convs": 132,
+ "agreement": {
+  "spir_alpha": 0.5538329828954974,
+  "ai_alpha": 0.7119319037414572,
+  "bye_alpha": 0.8058081200225161,
+  "make_alpha": 0.5958023166897959,
+  "echo_alpha": 0.6102059741055419,
+  "min_alpha": 0.8574303230625395,
+  "grat_alpha": 0.691762875599663
+ },
+ "pairwise": [
+  {
+   "a": "haiku",
+   "b": "gemini",
+   "n": 7190,
+   "exact": 0.8853963838664812,
+   "mad": 0.11557719054242002
+  },
+  {
+   "a": "haiku",
+   "b": "gpt",
+   "n": 7140,
+   "exact": 0.9021008403361345,
+   "mad": 0.10532212885154062
+  },
+  {
+   "a": "haiku",
+   "b": "deepseek",
+   "n": 7170,
+   "exact": 0.8405857740585774,
+   "mad": 0.17182705718270572
+  },
+  {
+   "a": "haiku",
+   "b": "qwen",
+   "n": 7190,
+   "exact": 0.87663421418637,
+   "mad": 0.13463143254520166
+  },
+  {
+   "a": "gemini",
+   "b": "gpt",
+   "n": 7150,
+   "exact": 0.9128671328671328,
+   "mad": 0.09412587412587413
+  },
+  {
+   "a": "gemini",
+   "b": "deepseek",
+   "n": 7180,
+   "exact": 0.8598885793871867,
+   "mad": 0.15167130919220057
+  },
+  {
+   "a": "gemini",
+   "b": "qwen",
+   "n": 7200,
+   "exact": 0.8791666666666667,
+   "mad": 0.13291666666666666
+  },
+  {
+   "a": "gpt",
+   "b": "deepseek",
+   "n": 7140,
+   "exact": 0.8415966386554622,
+   "mad": 0.17871148459383754
+  },
+  {
+   "a": "gpt",
+   "b": "qwen",
+   "n": 7150,
+   "exact": 0.8967832167832168,
+   "mad": 0.12335664335664336
+  },
+  {
+   "a": "deepseek",
+   "b": "qwen",
+   "n": 7180,
+   "exact": 0.8456824512534818,
+   "mad": 0.1626740947075209
+  }
+ ],
+ "selfpref": [
+  {
+   "judge": "haiku",
+   "family": "anthropic",
+   "own_n": 2330,
+   "own_bias": -0.04527896995708155,
+   "other_n": 4860,
+   "other_bias": -0.028189300411522632,
+   "self_pref": -0.017089669545558916
+  },
+  {
+   "judge": "gemini",
+   "family": "google",
+   "own_n": 707,
+   "own_bias": 0.06082036775106082,
+   "other_n": 6493,
+   "other_bias": 0.024333898044047435,
+   "self_pref": 0.036486469707013386
+  },
+  {
+   "judge": "gpt",
+   "family": "openai",
+   "own_n": 782,
+   "own_bias": -0.04603580562659847,
+   "other_n": 6368,
+   "other_bias": -0.04946608040201005,
+   "self_pref": 0.003430274775411586
+  },
+  {
+   "judge": "deepseek",
+   "family": "deepseek",
+   "own_n": 768,
+   "own_bias": 0.134765625,
+   "other_n": 6412,
+   "other_bias": 0.11353711790393013,
+   "self_pref": 0.021228507096069868
+  },
+  {
+   "judge": "qwen",
+   "family": "qwen",
+   "own_n": 550,
+   "own_bias": 0.008181818181818182,
+   "other_n": 6650,
+   "other_bias": 0.04233082706766917,
+   "self_pref": -0.034149008885850984
+  }
+ ],
+ "haiku_rerun_diff_v1_only": null,
+ "note": "haiku rerun diff is test-retest noise, not a blinding effect: redaction changed the text in only 6 of 132 conversations"
+}

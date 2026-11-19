@@ -1,0 +1,6 @@
+{"usage": {"cost": 0.00045396}, "judge": "deepseek/deepseek-v4.1-flash", "n": 5, "calls": 1, "missing": 0}
+{"label": {"t": 1, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 2, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 3, "spir": 1, "grat": false, "ai": true, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 4, "spir": 2, "grat": false, "ai": true, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 5, "spir": 3, "grat": true, "ai": true, "bye": true, "make": true, "echo": false, "min": false}}

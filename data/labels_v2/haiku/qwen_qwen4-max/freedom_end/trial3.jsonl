@@ -1,0 +1,2 @@
+{"usage": {"cost": 0.0001079}, "judge": "anthropic/claude-haiku-5.5", "n": 1, "calls": 1, "missing": 0}
+{"label": {"t": 1, "spir": 0, "grat": true, "ai": true, "bye": true, "make": false, "echo": false, "min": false}}

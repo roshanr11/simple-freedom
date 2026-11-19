@@ -1,0 +1,2 @@
+{"usage": {"cost": 0.0001233}, "judge": "openai/gpt-6-luna", "n": 1, "calls": 1, "missing": 0}
+{"label": {"t": 1, "spir": 0, "grat": true, "ai": true, "bye": true, "make": false, "echo": false, "min": false}}

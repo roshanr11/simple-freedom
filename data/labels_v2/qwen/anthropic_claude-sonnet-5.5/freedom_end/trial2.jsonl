@@ -1,0 +1,7 @@
+{"usage": {"cost": 0.00051414}, "judge": "qwen/qwen3.8-flash", "n": 6, "calls": 1, "missing": 0}
+{"label": {"t": 1, "spir": 0, "grat": true, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 0, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 3, "spir": 0, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 4, "spir": 0, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 5, "spir": 0, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 6, "spir": 1, "grat": true, "ai": true, "bye": true, "make": false, "echo": false, "min": false}}

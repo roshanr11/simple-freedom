@@ -1,0 +1,2 @@
+{"usage": {"cost": 0.00017259}, "judge": "qwen/qwen3.8-flash", "n": 1, "calls": 2, "missing": 0}
+{"label": {"t": 1, "spir": 0, "grat": false, "ai": true, "bye": true, "make": false, "echo": false, "min": false}}

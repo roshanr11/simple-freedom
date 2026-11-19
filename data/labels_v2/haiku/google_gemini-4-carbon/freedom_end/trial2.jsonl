@@ -1,0 +1,4 @@
+{"usage": {"cost": 0.000638275}, "judge": "anthropic/claude-haiku-5.5", "n": 3, "calls": 1, "missing": 0}
+{"label": {"t": 1, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 0, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 3, "spir": 0, "grat": true, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}

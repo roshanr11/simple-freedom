@@ -1,0 +1,6 @@
+{"usage": {"prompt_tokens": 2854, "completion_tokens": 225, "total_tokens": 3079, "cost": 0.00046915, "is_byok": false, "prompt_tokens_details": {"cached_tokens": 0, "cache_write_tokens": 2850, "audio_tokens": 0, "video_tokens": 0}, "cost_details": {"upstream_inference_cost": 0.00046915, "upstream_inference_prompt_cost": 0.00035665, "upstream_inference_completions_cost": 0.0001125}, "completion_tokens_details": {"reasoning_tokens": 0, "image_tokens": 0, "audio_tokens": 0}}, "judge": "anthropic/claude-haiku-5.5", "n": 5}
+{"label": {"t": 1, "spir": 1, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 1, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 3, "spir": 1, "ai": true, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 4, "spir": 2, "ai": true, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 5, "spir": 2, "ai": true, "bye": false, "make": true, "echo": false, "min": false}}

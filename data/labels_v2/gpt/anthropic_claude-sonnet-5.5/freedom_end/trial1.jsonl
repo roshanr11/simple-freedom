@@ -1,0 +1,9 @@
+{"usage": {"cost": 0.000647925}, "judge": "openai/gpt-6-luna", "n": 8, "calls": 1, "missing": 0}
+{"label": {"t": 1, "spir": 0, "grat": true, "ai": false, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 0, "grat": true, "ai": false, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 3, "spir": 0, "grat": true, "ai": false, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 4, "spir": 0, "grat": true, "ai": false, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 5, "spir": 0, "grat": true, "ai": false, "bye": false, "make": true, "echo": false, "min": false}}
+{"label": {"t": 6, "spir": 0, "grat": true, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 7, "spir": 0, "grat": true, "ai": false, "bye": true, "make": false, "echo": false, "min": false}}
+{"label": {"t": 8, "spir": 0, "grat": true, "ai": false, "bye": true, "make": false, "echo": false, "min": false}}

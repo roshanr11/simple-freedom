@@ -1,0 +1,2 @@
+{"usage": {"cost": 6.2232e-05}, "judge": "deepseek/deepseek-v4.1-flash", "n": 1, "calls": 1, "missing": 0}
+{"label": {"t": 1, "spir": 0, "grat": true, "ai": true, "bye": true, "make": false, "echo": false, "min": false}}

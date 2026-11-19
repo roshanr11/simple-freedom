@@ -1,0 +1,10 @@
+{"usage": {"cost": 0.000316275}, "judge": "anthropic/claude-haiku-5.5", "n": 9, "calls": 1, "missing": 0}
+{"label": {"t": 1, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 2, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 3, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 4, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": true, "min": true}}
+{"label": {"t": 5, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": true, "min": true}}
+{"label": {"t": 6, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 7, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 8, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": true, "min": false}}
+{"label": {"t": 9, "spir": 0, "grat": false, "ai": false, "bye": true, "make": false, "echo": false, "min": true}}

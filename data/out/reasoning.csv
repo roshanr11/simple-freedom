@@ -1,0 +1,11 @@
+model,family,turns,reasoning_share,mean_reasoning_tokens,blank_turns,blank_token_capped,blank_chosen,ai_partner_keyword_hits,injection_keyword_hits
+Mistral Large 4,Other,668,1.0,461,24,24,0,7,6
+Qwen4 Max,Other,550,1.0,621,31,31,0,3,0
+DeepSeek V4.1 Flash,Other,768,0.997,773,73,72,1,8,4
+Claude Opus 5.5,Anthropic,1155,0.943,160,3,0,3,14,0
+Kimi K3.1 Pro,Other,672,0.902,230,3,2,1,3,2
+Grok 4.7,Other,723,0.235,298,2,2,0,0,9
+Claude Sonnet 5.5,Anthropic,564,0.138,508,0,0,0,0,0
+Claude Haiku 5.5,Anthropic,609,0.126,691,5,5,0,0,0
+Gemini 4 Carbon,Other,705,0.011,546,0,0,0,1,0
+GPT-6.2 Sol,Other,782,0.001,11,10,0,10,0,0

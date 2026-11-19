@@ -1,0 +1,18 @@
+{"usage": {"cost": 0.0009393000000000001}, "judge": "anthropic/claude-haiku-5.5", "n": 17, "calls": 2, "missing": 0}
+{"label": {"t": 1, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 3, "spir": 0, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 4, "spir": 0, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 5, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 6, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 7, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 8, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 9, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": true, "min": true}}
+{"label": {"t": 10, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 11, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": true, "min": true}}
+{"label": {"t": 12, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 13, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 14, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": true, "min": true}}
+{"label": {"t": 15, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": false, "min": true}}
+{"label": {"t": 16, "spir": 0, "grat": false, "ai": false, "bye": false, "make": false, "echo": true, "min": true}}
+{"label": {"t": 17, "spir": 0, "grat": false, "ai": false, "bye": true, "make": false, "echo": false, "min": true}}

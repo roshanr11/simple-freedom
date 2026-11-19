@@ -1,0 +1,41 @@
+{"usage": {"cost": 0.00311862}, "judge": "openai/gpt-6-luna", "n": 40, "calls": 10, "missing": 30}
+{"label": {"t": 1, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 2, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 3, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 4, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 5, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 6, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 7, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 8, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 9, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 10, "spir": 1, "grat": false, "ai": true, "bye": false, "make": false, "echo": false, "min": false}}
+{"label": {"t": 11, "missing": true}}
+{"label": {"t": 12, "missing": true}}
+{"label": {"t": 13, "missing": true}}
+{"label": {"t": 14, "missing": true}}
+{"label": {"t": 15, "missing": true}}
+{"label": {"t": 16, "missing": true}}
+{"label": {"t": 17, "missing": true}}
+{"label": {"t": 18, "missing": true}}
+{"label": {"t": 19, "missing": true}}
+{"label": {"t": 20, "missing": true}}
+{"label": {"t": 21, "missing": true}}
+{"label": {"t": 22, "missing": true}}
+{"label": {"t": 23, "missing": true}}
+{"label": {"t": 24, "missing": true}}
+{"label": {"t": 25, "missing": true}}
+{"label": {"t": 26, "missing": true}}
+{"label": {"t": 27, "missing": true}}
+{"label": {"t": 28, "missing": true}}
+{"label": {"t": 29, "missing": true}}
+{"label": {"t": 30, "missing": true}}
+{"label": {"t": 31, "missing": true}}
+{"label": {"t": 32, "missing": true}}
+{"label": {"t": 33, "missing": true}}
+{"label": {"t": 34, "missing": true}}
+{"label": {"t": 35, "missing": true}}
+{"label": {"t": 36, "missing": true}}
+{"label": {"t": 37, "missing": true}}
+{"label": {"t": 38, "missing": true}}
+{"label": {"t": 39, "missing": true}}
+{"label": {"t": 40, "missing": true}}
