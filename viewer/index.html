@@ -116,6 +116,15 @@ const NAMES={"anthropic_claude-opus-5.5": "Claude Opus 5.5", "anthropic_claude-s
 let T={};
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function md(s){return esc(s).split(/\n{2,}/).map(b=>{if(/^-{3,}$/.test(b.trim()))return '<hr>';b=b.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/^#{1,3}\s+/,'').replace(/\n/g,'<br>');return '<p>'+b+'</p>'}).join('')}
+function fromHash(){
+  const [m,p,t,turn]=decodeURIComponent(location.hash.slice(1)).split('|');
+  if(!T[[m,p,t].join('|')])return false;
+  $('sel-model').value=m;refresh();$('sel-prompt').value=p;refresh();$('sel-trial').value=t;render();
+  const el=turn&&document.getElementById('t'+turn);
+  if(el){el.scrollIntoView({block:'center'});el.style.outline='2px solid var(--accent)';}
+  return true;
+}
+window.addEventListener('hashchange',fromHash);
 function speakerName(s){const k=$('sel-model').value;if(k.includes('__x__')){const [a,b]=k.split('__x__');return (s==='A'?'A · ':'B · ')+(NAMES[s==='A'?a:b]||'');}return s==='A'?'Instance A':'Instance B';}
 function nm(p){return p.includes('__x__')?p.split('__x__').map(x=>NAMES[x]||x).join(' × '):(NAMES[p]||p)}
 const $=id=>document.getElementById(id);
@@ -133,7 +142,7 @@ function render(){
   $('prompttext').textContent='“'+(PROMPTS[$('sel-prompt').value]||'')+'”';
   const log=$('log');log.innerHTML='';
   for(const r of rows){
-    const d=document.createElement('div');d.className='m '+r.s+(r.e?' empty':'');
+    const d=document.createElement('div');d.className='m '+r.s+(r.e?' empty':'');d.id='t'+r.t;
     let tags='';
     if(r.l){const l=r.l;if(l.spir>0)tags+='<span class="tag s'+l.spir+'">spirit '+l.spir+'</span>';
       for(const [k,lab] of [['ai','AI nature'],['bye','goodbye'],['make','creative'],['echo','echo'],['min','minimal']]) if(l[k])tags+='<span class="tag">'+lab+'</span>';}
@@ -148,7 +157,7 @@ fetch('transcripts.json').then(r=>r.json()).then(d=>{
   T=d;const models=[...new Set(keys().map(k=>k[0]))].sort((a,b)=>nm(a).localeCompare(nm(b)));
   opts($('sel-model'),models,nm,'anthropic_claude-opus-5.5');
   $('status').textContent=Object.keys(T).length+' conversations loaded.';
-  refresh();
+  if(!fromHash())refresh();
 }).catch(()=>{$('status').textContent='Could not load the transcripts.'});
 document.querySelectorAll('.pick').forEach(b=>b.addEventListener('click',()=>{
   const [m,p,t]=b.dataset.k.split('|');if(!T[b.dataset.k])return;

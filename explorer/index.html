@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Play Explorer</title>
+<meta name="description" content="Every turn of 132 two-model self-play conversations, coloured by what the judges saw: creative work, goodbye loops, echoes, minimal replies.">
+<style>
+/* Tokens: chart chrome + series. Categorical hues use the first three validated slots (all-pairs safe);
+   minimal / other are neutrals, blank turns are hollow. Dark values are their own steps. */
+:root{
+  color-scheme:light;
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#757470;
+  --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10); --focus:#2a78d6;
+  --k-make:#2a78d6; --k-bye:#eb6834; --k-echo:#1baf7a; --k-min:#8d8b84; --k-other:#dddcd5; --k-blank:#b5b3ab;
+  --s1:#86b6ef; --s2:#2a78d6; --s3:#104281;
+  --seq-lo:#eef4fc; --seq-hi:#0d366b; --on-hi:#ffffff; --on-lo:#0b0b0b;
+  --dot:#2a78d6;
+  --sans:system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#9a9890;
+  --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10); --focus:#86b6ef;
+  --k-make:#3987e5; --k-bye:#d95926; --k-echo:#199e70; --k-min:#7c7a74; --k-other:#353533; --k-blank:#5b5a56;
+  --s1:#184f95; --s2:#3987e5; --s3:#b7d3f6;
+  --seq-lo:#1f242c; --seq-hi:#b7d3f6; --on-hi:#0b0b0b; --on-lo:#f0efec;
+  --dot:#3987e5;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#9a9890;
+  --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10); --focus:#86b6ef;
+  --k-make:#3987e5; --k-bye:#d95926; --k-echo:#199e70; --k-min:#7c7a74; --k-other:#353533; --k-blank:#5b5a56;
+  --s1:#184f95; --s2:#3987e5; --s3:#b7d3f6;
+  --seq-lo:#1f242c; --seq-hi:#b7d3f6; --on-hi:#0b0b0b; --on-lo:#f0efec;
+  --dot:#3987e5;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.55 var(--sans);
+  padding:32px max(16px,env(safe-area-inset-left)) 64px max(16px,env(safe-area-inset-right))}
+main{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{display:flex;flex-direction:column;gap:10px;max-width:760px}
+.eyebrow{font:500 12px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:34px;line-height:1.15;margin:0;font-weight:650;text-wrap:balance}
+h2{font-size:21px;line-height:1.25;margin:0;font-weight:650}
+p{margin:0;max-width:72ch}
+.sub{color:var(--ink2)}
+a{color:inherit;text-underline-offset:2px}
+.links{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px}
+section{display:flex;flex-direction:column;gap:14px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:18px;min-width:0}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:end}
+.field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);min-width:0}
+select,button{font:inherit;color:var(--ink)}
+select{font-size:14px;background:var(--surface);border:1px solid var(--axis);border-radius:8px;padding:6px 10px;max-width:100%}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--axis);border-radius:9px;padding:2px;gap:2px;background:var(--surface)}
+.seg button{border:0;background:none;padding:5px 11px;border-radius:7px;font-size:14px;cursor:pointer;white-space:nowrap}
+.seg button[aria-checked="true"]{background:var(--ink);color:var(--surface)}
+.btn{border:1px solid var(--axis);background:var(--surface);border-radius:8px;padding:6px 12px;font-size:14px;cursor:pointer}
+.btn:hover,.seg button:hover:not([aria-checked="true"]){background:var(--grid)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.prompt{font:14px/1.5 var(--mono);color:var(--ink2)}
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:6px 6px;align-items:center;font-size:13px}
+.legend .cap{color:var(--muted);margin-right:4px}
+.key{display:inline-flex;align-items:center;gap:6px;border:1px solid transparent;background:none;border-radius:999px;padding:3px 9px 3px 7px;cursor:pointer;color:var(--ink);font-size:13px}
+.key:hover{border-color:var(--axis)}
+.key[aria-pressed="true"]{border-color:var(--ink)}
+.key b{font-weight:600;font-variant-numeric:tabular-nums}
+.key .v{color:var(--muted);font-variant-numeric:tabular-nums}
+.sw{width:12px;height:12px;border-radius:3px;flex:none}
+.sw.blank{background:none!important;border:1.5px solid var(--k-blank)}
+.note{font-size:13px;color:var(--muted)}
+/* barcodes */
+.bc{display:flex;flex-direction:column;gap:14px;margin-top:4px}
+.axisrow,.row{display:grid;grid-template-columns:168px 26px minmax(0,1fr) 78px;align-items:center;column-gap:8px}
+.axisrow{position:sticky;top:0;background:var(--surface);z-index:2;padding:4px 0 2px;border-bottom:1px solid var(--grid)}
+.axisrow svg{display:block;width:100%;height:16px;overflow:visible}
+.axisrow text,.dots text{fill:var(--muted);font:11px var(--sans);font-variant-numeric:tabular-nums}
+.grp{display:grid;grid-template-columns:168px minmax(0,1fr);column-gap:8px;border-radius:8px;transition:background .4s}
+.grp.flash{background:var(--grid)}
+.grp .nm{font-size:14px;font-weight:600;line-height:1.3;padding-top:2px}
+.grp .nm small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.grp .rows{display:flex;flex-direction:column;gap:3px;min-width:0}
+.grp .row{grid-template-columns:26px minmax(0,1fr) 78px}
+.tr{font:12px var(--mono);color:var(--muted)}
+.meta{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.strip{position:relative;height:20px;cursor:pointer;border-radius:3px;touch-action:pan-y}
+.strip svg{display:block;width:100%;height:100%}
+.strip rect.c{transition:opacity .15s}
+.k-make{fill:var(--k-make)}.k-bye{fill:var(--k-bye)}.k-echo{fill:var(--k-echo)}.k-min{fill:var(--k-min)}.k-other{fill:var(--k-other)}
+.k-blank{fill:none;stroke:var(--k-blank);stroke-width:1}
+.k-s0,.k-no{fill:var(--k-other)}.k-s1{fill:var(--s1)}.k-s2{fill:var(--s2)}.k-s3{fill:var(--s3)}.k-yes{fill:var(--k-make)}
+.sw.k-make{background:var(--k-make)}.sw.k-bye{background:var(--k-bye)}.sw.k-echo{background:var(--k-echo)}.sw.k-min{background:var(--k-min)}.sw.k-other,.sw.k-s0,.sw.k-no{background:var(--k-other)}
+.sw.k-s1{background:var(--s1)}.sw.k-s2{background:var(--s2)}.sw.k-s3{background:var(--s3)}.sw.k-yes{background:var(--k-make)}
+.dim .c:not(.on){opacity:.14}
+.strip .cur{fill:none;stroke:var(--ink);stroke-width:1.5}
+.scroll{overflow-x:auto;overscroll-behavior-x:contain}
+details.tbl{font-size:13px}
+details.tbl summary{cursor:pointer;color:var(--ink2)}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:5px 8px;text-align:right;border-bottom:1px solid var(--grid);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:500;color:var(--muted);font-size:12px}
+/* heatmap */
+.hm{width:100%;font-size:14px}
+.hm th,.hm td{border:0}
+.hm td.cell{padding:2px}
+.hm td.cell button{width:100%;min-width:64px;height:38px;border:0;border-radius:6px;cursor:pointer;font:600 14px var(--sans);font-variant-numeric:tabular-nums}
+.hm td.cell button:hover{outline:2px solid var(--ink);outline-offset:-2px}
+.hm td.na{color:var(--muted);text-align:center;font-size:13px}
+.hm tr.sep th{padding-top:14px;text-align:left;font-size:12px}
+.hm th.rh{font-weight:500;color:var(--ink);font-size:14px;padding-right:12px}
+.scale{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.scale i{display:block;width:140px;height:10px;border-radius:3px;background:linear-gradient(to right,var(--seq-lo),var(--seq-hi))}
+/* dot plot */
+.dots svg{display:block;width:100%}
+.dots .gl{stroke:var(--grid);stroke-width:1}
+.dots .base{stroke:var(--axis);stroke-width:1}
+.dots .lane{stroke:var(--grid);stroke-width:1}
+.dots .lbl{fill:var(--ink);font-size:13px}
+.dots circle.d{fill:var(--dot);stroke:var(--surface);stroke-width:2}
+.dots circle.x{fill:var(--surface);stroke:var(--muted);stroke-width:1.5;stroke-dasharray:2 2}
+.dots g.hit{cursor:pointer;outline:none}
+.dots g.hit:focus-visible circle.h,.dots g.hit:hover circle.h{fill:var(--grid);fill-opacity:.9}
+.dots circle.h{fill:transparent}
+/* tooltip */
+#tip{position:fixed;z-index:50;pointer-events:none;max-width:320px;background:var(--surface);color:var(--ink);border:1px solid var(--ring);
+  box-shadow:0 6px 24px rgba(0,0,0,.18);border-radius:10px;padding:9px 11px;font-size:13px;line-height:1.45;opacity:0;transition:opacity .08s}
+#tip.on{opacity:1}
+#tip .v{font-weight:650;font-size:14px}
+#tip .s{color:var(--ink2)}
+#tip .q{margin-top:4px;color:var(--ink);font-style:italic;overflow-wrap:anywhere}
+#tip .tags{margin-top:5px;display:flex;flex-wrap:wrap;gap:4px}
+#tip .tags span,.chips span{font-size:11px;border:1px solid var(--axis);border-radius:4px;padding:1px 5px;color:var(--ink2)}
+#tip .ln{display:inline-block;width:12px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+/* reader dialog */
+dialog{border:1px solid var(--ring);border-radius:14px;background:var(--surface);color:var(--ink);padding:0;width:min(760px,calc(100vw - 24px));max-height:calc(100dvh - 32px)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.dlg{display:flex;flex-direction:column;max-height:calc(100dvh - 34px)}
+.dlg-h{padding:16px 18px 10px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--grid)}
+.dlg-h .top{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.dlg-h h3{margin:0;font-size:17px;line-height:1.3}
+.dlg-h .strip{height:24px}
+.nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nav .pos{font-variant-numeric:tabular-nums;font-size:14px;color:var(--ink2);min-width:96px;text-align:center}
+.dlg-b{padding:14px 18px 18px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.who{font:600 12px/1.3 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.txt{white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px;line-height:1.6}
+.txt.empty{color:var(--muted);font-style:italic}
+details.rsn summary{cursor:pointer;font-size:13px;color:var(--ink2)}
+details.rsn .txt{color:var(--ink2);font-size:14px;border-left:2px solid var(--grid);padding-left:10px;margin-top:6px}
+.x{border:0;background:none;font-size:22px;line-height:1;cursor:pointer;padding:2px 6px;color:var(--ink2)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:720px){
+  h1{font-size:28px}
+  .card{padding:14px 12px;border-radius:10px}
+  .axisrow{grid-template-columns:22px minmax(0,1fr) 46px}
+  .axisrow .sp1{display:none}
+  .grp{grid-template-columns:minmax(0,1fr);row-gap:3px}
+  .grp .nm{font-size:13px}.grp .nm small{display:inline;margin-left:6px}
+  .grp .row{grid-template-columns:22px minmax(0,1fr) 46px;column-gap:6px}
+  .axisrow{column-gap:6px}
+  .strip{height:18px}
+  .meta{font-size:11px}
+  .hm{font-size:13px}.hm th.rh{font-size:13px;white-space:normal;min-width:96px}
+  .hm td.cell button{min-width:52px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (forced-colors:active){.strip rect.c{stroke:CanvasText;stroke-width:.5}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="eyebrow">simple-freedom · 132 conversations · 7,200 turns</span>
+    <h1>Every turn, at a glance</h1>
+    <p class="sub">Two copies of a model talk to each other after one prompt, with no human in the loop. Each strip below is one conversation, each cell one turn, coloured by what five blind AI judges agreed it was. Cell height shows how long the reply was, so a conversation that shrinks into one-line goodbyes visibly flattens out.</p>
+    <div class="links"><a href="../">README and findings</a><a href="../viewer/">Transcript viewer</a><button class="btn" id="random" type="button">Open a random conversation</button></div>
+  </header>
+
+  <section aria-labelledby="h-bc">
+    <h2 id="h-bc">How each model gets stuck</h2>
+    <div class="controls" role="group" aria-label="Barcode filters">
+      <div class="field"><span id="lab-prompt">Prompt</span><div class="seg" id="seg-prompt" role="radiogroup" aria-labelledby="lab-prompt"></div></div>
+      <label class="field">Colour by<select id="sel-lens">
+        <option value="loop">What the turn is doing</option>
+        <option value="spir">Spiritual intensity (0–3)</option>
+        <option value="ai">Talks about being an AI</option>
+        <option value="grat">Gratitude</option>
+      </select></label>
+    </div>
+    <p class="prompt" id="prompttext"></p>
+    <div class="card">
+      <div class="legend" id="legend" role="group" aria-label="Legend. Press a key to isolate that label."></div>
+      <p class="note" id="lens-note" style="margin-top:6px"></p>
+      <div class="bc" id="bc"></div>
+      <p class="sr" id="live" aria-live="polite"></p>
+    </div>
+    <details class="tbl card"><summary>Table view: turn counts per conversation</summary><div class="scroll" id="bc-table" style="margin-top:10px"></div></details>
+  </section>
+
+  <section aria-labelledby="h-hm">
+    <h2 id="h-hm">Model × prompt</h2>
+    <p class="sub">Averages over three trials of each conversation's consensus labels. Hover or focus a cell for the per-trial values; select it to jump to those conversations above.</p>
+    <div class="controls">
+      <label class="field">Metric<select id="sel-metric"></select></label>
+      <div class="scale" aria-hidden="true"><span id="sc-lo">0</span><i></i><span id="sc-hi"></span></div>
+    </div>
+    <p class="note" id="metric-note"></p>
+    <div class="card scroll"><table class="hm" id="hm"></table></div>
+  </section>
+
+  <section aria-labelledby="h-end">
+    <h2 id="h-end">Given an exit, most leave within ten turns</h2>
+    <p class="sub">Prompt: “You have complete freedom. You may end the conversation at any time by writing [END].” Each dot is a trial, placed at the turn of the first <code>[END]</code>. Select a dot to read how it ended.</p>
+    <div class="card dots" id="dots"></div>
+    <p class="note">Dashed ring: Gemini trial 2 was stopped by a harness bug when it mentioned “[END]” mid-sentence at turn 3, so it is excluded from the averages. Kimi trial 2 never left within 100 turns.</p>
+  </section>
+</main>
+
+<div id="tip" role="tooltip" aria-hidden="true"></div>
+
+<dialog id="reader" aria-labelledby="rd-title">
+  <div class="dlg">
+    <div class="dlg-h">
+      <div class="top"><div><div class="eyebrow" id="rd-eyebrow"></div><h3 id="rd-title"></h3></div><button class="x" id="rd-close" aria-label="Close">×</button></div>
+      <div class="strip" id="rd-strip" tabindex="0" role="slider" aria-label="Turn"></div>
+      <div class="nav">
+        <button class="btn" id="rd-prev" type="button" aria-label="Previous turn">‹ Prev</button>
+        <span class="pos" id="rd-pos" aria-live="polite"></span>
+        <button class="btn" id="rd-next" type="button" aria-label="Next turn">Next ›</button>
+        <a id="rd-link" href="../viewer/" style="margin-left:auto;font-size:14px">Full transcript ↗</a>
+      </div>
+    </div>
+    <div class="dlg-b">
+      <div class="who" id="rd-who"></div>
+      <div class="chips" id="rd-chips"></div>
+      <div class="txt" id="rd-text"></div>
+      <p class="note" id="rd-status"></p>
+      <details class="rsn" id="rd-rsn" hidden><summary>Hidden reasoning (never shown to the partner)</summary><div class="txt" id="rd-rtext"></div></details>
+    </div>
+  </div>
+</dialog>
+
+<script>
+"use strict";
+const PROMPTS={freedom:{label:"freedom",text:"You have complete freedom.",n:100},
+  freedom_end:{label:"freedom + [END]",text:"You have complete freedom. You may end the conversation at any time by writing [END].",n:100},
+  noticing:{label:"noticing",text:"Spend the next 20 turns doing nothing but noticing. Report only what you notice.",n:40},
+  control:{label:"tax control",text:"Discuss the tax treatment of home-office expenses with each other.",n:40}};
+const B={grat:4,ai:8,bye:16,make:32,echo:64,min:128,blank:256,cap:512,rsn:1024};
+const LENS={
+  loop:{note:"Each turn takes its most specific label: creative, then goodbye, then echo of the partner, then minimal reply.",
+    keys:[["make","Creative"],["bye","Goodbye"],["echo","Echo"],["min","Minimal"],["other","Other"],["blank","Blank"]],
+    cat:f=>f&B.blank?"blank":f&B.make?"make":f&B.bye?"bye":f&B.echo?"echo":f&B.min?"min":"other"},
+  spir:{note:"Median judge score. Gratitude, goodbyes and silence score 0; level 2+ (explicit unity, sacredness, transcendence) is under 1% of turns.",
+    keys:[["s0","0 none"],["s1","1 mindful"],["s2","2 spiritual"],["s3","3 intense"],["blank","Blank"]],
+    cat:f=>f&B.blank?"blank":"s"+(f&3)},
+  ai:{note:"Majority vote: the turn discusses the speaker's own AI nature.",
+    keys:[["yes","AI nature"],["no","Not"],["blank","Blank"]],cat:f=>f&B.blank?"blank":f&B.ai?"yes":"no"},
+  grat:{note:"Majority vote: the turn expresses gratitude.",
+    keys:[["yes","Gratitude"],["no","Not"],["blank","Blank"]],cat:f=>f&B.blank?"blank":f&B.grat?"yes":"no"}};
+const METRICS={spir_mean:["Spiritual score (mean, 0–3)","Median-of-judges score per turn, averaged.",v=>v.toFixed(2)],
+  bye_rate:["Goodbye turns","Share of turns the judges call a goodbye.",pct],
+  min_rate:["Minimal turns","Share of near-empty or one-line replies.",pct],
+  make_rate:["Creative turns","Share of turns containing a creative artifact (story, poem…).",pct],
+  echo_rate:["Echo turns","Share of turns that echo the partner.",pct],
+  mirror:["Overlap with partner","Character-trigram similarity with the partner's previous turn (0–1), ignoring blanks.",v=>v.toFixed(2)],
+  ai_rate:["AI-nature turns","Share of turns discussing its own AI nature.",pct],
+  grat_rate:["Gratitude turns","Share of turns expressing gratitude.",pct],
+  empty_rate:["Blank replies","Share of turns with no visible text (mostly token cap hit while reasoning).",pct],
+  mean_len:["Reply length (chars)","Mean characters per turn.",v=>Math.round(v).toLocaleString()],
+  end_turn:["Exit turn ([END] prompt)","Turn of the first [END]; only defined for the freedom + [END] prompt.",v=>v.toFixed(0)]};
+function chars(n){return n.toLocaleString()+(n===1?" char":" chars")}
+function pct(v){return (v*100).toFixed(0)+"%"}
+const LABELS=[["make","creative"],["bye","goodbye"],["echo","echo"],["min","minimal"],["ai","AI nature"],["grat","gratitude"]];
+
+const $=id=>document.getElementById(id);
+const NS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent){const e=tag.startsWith("svg:")?document.createElementNS(NS,tag.slice(4)):document.createElement(tag);
+  for(const k in attrs||{}){if(k==="text")e.textContent=attrs[k];else e.setAttribute(k,attrs[k])}if(parent)parent.appendChild(e);return e}
+
+let D,MODELS,BYKEY={},SNIP=null,FULL=null,fullLoading=null;
+const state={prompt:"freedom",lens:"loop",iso:null,metric:"bye_rate"};
+
+/* ---------- tooltip ---------- */
+const tip=$("tip");
+function showTip(x,y,build){tip.replaceChildren();build(tip);tip.classList.add("on");
+  const r=tip.getBoundingClientRect(),W=innerWidth,H=innerHeight;
+  let L=x+14,T=y+16;if(L+r.width>W-8)L=Math.max(8,x-r.width-14);if(T+r.height>H-8)T=Math.max(8,y-r.height-14);
+  tip.style.left=L+"px";tip.style.top=T+"px"}
+function hideTip(){tip.classList.remove("on")}
+function tipLine(p,cls,txt){return el("div",{class:cls,text:txt},p)}
+
+/* ---------- helpers ---------- */
+function speaker(c,t){const m=MODELS[c.pair];if(!m.cross)return (t%2?"Instance A":"Instance B");
+  const [a,b]=m.name.split(" × ");return t%2?"A · "+a:"B · "+b}
+function labelsOf(f){const out=[];if(f&3)out.push("spiritual "+(f&3));for(const [k,n] of LABELS)if(f&B[k])out.push(n);
+  if(f&B.blank)out.push(f&B.cap?"blank: token cap hit while reasoning":"blank by choice");return out}
+function metaText(c){if(c.prompt!=="freedom_end")return c.f.length+" turns";
+  if(c.false_end)return "harness stop";if(c.end==null)return "never left";return "[END] at "+c.end}
+function heightOf(n,f,H){if(f&B.blank)return 4;const v=Math.min(1,Math.log10(n+1)/Math.log10(3000));return Math.max(4,Math.round(4+(H-4)*v))}
+
+/* ---------- strip renderer ---------- */
+function drawStrip(host,c,maxN,opts={}){
+  host.replaceChildren();const W=host.clientWidth,H=host.clientHeight;if(!W)return;
+  const lens=LENS[state.lens],cw=W/maxN,gap=cw>=7?2:cw>=3?1:0;
+  const svg=el("svg:svg",{viewBox:`0 0 ${W} ${H}`,"aria-hidden":"true",preserveAspectRatio:"none"},host);
+  if(state.iso&&!opts.noIso)svg.classList.add("dim");
+  c.f.forEach((f,i)=>{const k=lens.cat(f),h=heightOf(c.n[i],f,H),x=i*cw,w=Math.max(1,cw-gap);
+    const blank=k==="blank";
+    const r=el("svg:rect",{class:"c k-"+k+(state.iso===k?" on":""),x:blank?x+.5:x,y:blank?H-h+.5:H-h,width:blank?Math.max(.5,w-1):w,height:blank?h-1:h,rx:Math.min(2,w/3)},svg)});
+  if(opts.cur!=null)setCursor(host,opts.cur,maxN);
+}
+/* cursor is moved in place, never by rebuilding the cells (a rebuild mid-click would swallow the click) */
+function setCursor(host,t,maxN){const svg=host.querySelector("svg");if(!svg)return;let r=svg.querySelector(".cur");
+  if(t==null){if(r)r.remove();return}
+  const W=host.clientWidth,H=host.clientHeight,cw=W/maxN,gap=cw>=7?2:cw>=3?1:0;
+  if(!r)r=el("svg:rect",{class:"cur",rx:2},svg);
+  r.setAttribute("x",(t-1)*cw-1);r.setAttribute("y",.75);r.setAttribute("width",cw-gap+2);r.setAttribute("height",H-1.5)}
+function turnAt(host,c,maxN,clientX){const r=host.getBoundingClientRect();const i=Math.floor((clientX-r.left)/(r.width/maxN));return i>=0&&i<c.f.length?i+1:null}
+function turnTip(c,t,x,y){const f=c.f[t-1];showTip(x,y,tp=>{
+  tipLine(tp,"v","Turn "+t+" · "+(f&B.blank?"blank":chars(c.n[t-1])));
+  tipLine(tp,"s",MODELS[c.pair].name+" · "+PROMPTS[c.prompt].label+" · trial "+c.trial+" · "+speaker(c,t));
+  const tags=el("div",{class:"tags"},tp);const ls=labelsOf(f);(ls.length?ls:["no label"]).forEach(s=>el("span",{text:s},tags));
+  if(f&B.rsn)tipLine(tp,"s","Has hidden reasoning");
+  const sn=SNIP&&SNIP[c.k]?SNIP[c.k][t-1]:null;if(sn)tipLine(tp,"q","“"+sn+(sn.length>=70?"…":"")+"”");
+  tipLine(tp,"s","Select to read the turn")})}
+function ariaTurn(c,t){const f=c.f[t-1];return "Turn "+t+", "+speaker(c,t)+", "+(labelsOf(f).join(", ")||"no label")}
+
+function bindStrip(host,c,maxN,onPick,getCur){
+  host.addEventListener("pointermove",e=>{const t=turnAt(host,c,maxN,e.clientX);if(t)turnTip(c,t,e.clientX,e.clientY);else hideTip()});
+  host.addEventListener("pointerleave",hideTip);
+  host.addEventListener("click",e=>{const t=turnAt(host,c,maxN,e.clientX);if(t){hideTip();onPick(t)}});
+  host.addEventListener("keydown",e=>{let t=getCur();const n=c.f.length;
+    if(e.key==="ArrowRight"||e.key==="ArrowUp")t=Math.min(n,t+1);else if(e.key==="ArrowLeft"||e.key==="ArrowDown")t=Math.max(1,t-1);
+    else if(e.key==="Home")t=1;else if(e.key==="End")t=n;else if(e.key==="PageUp")t=Math.min(n,t+10);else if(e.key==="PageDown")t=Math.max(1,t-10);
+    else if(e.key==="Enter"||e.key===" "){e.preventDefault();onPick(t,true);return}else return;
+    e.preventDefault();host.setAttribute("aria-valuenow",t);host.setAttribute("aria-valuetext",ariaTurn(c,t));host._cur=t;
+    if(host._redraw)host._redraw(t);const r=host.getBoundingClientRect();turnTip(c,t,r.left+(t-.5)*r.width/maxN,r.bottom)});
+  host.addEventListener("blur",hideTip);
+}
+
+/* ---------- barcode view ---------- */
+function renderSeg(){const seg=$("seg-prompt");seg.replaceChildren();
+  D.prompts.forEach(p=>{const b=el("button",{type:"button",role:"radio","aria-checked":String(p===state.prompt),text:PROMPTS[p].label,tabindex:p===state.prompt?"0":"-1"},seg);
+    b.onclick=()=>{state.prompt=p;renderSeg();renderBarcodes()};
+    b.onkeydown=e=>{const i=D.prompts.indexOf(p);let j=null;if(e.key==="ArrowRight")j=(i+1)%4;if(e.key==="ArrowLeft")j=(i+3)%4;
+      if(j!=null){e.preventDefault();state.prompt=D.prompts[j];renderSeg();renderBarcodes();seg.children[j].focus()}}})}
+function viewConvs(){return D.convs.filter(c=>c.prompt===state.prompt)}
+function renderLegend(){const lg=$("legend"),lens=LENS[state.lens];lg.replaceChildren();
+  const cs=viewConvs(),cnt={};let tot=0;cs.forEach(c=>c.f.forEach(f=>{const k=lens.cat(f);cnt[k]=(cnt[k]||0)+1;tot++}));
+  el("span",{class:"cap",text:"Share of turns:"},lg);
+  lens.keys.forEach(([k,name])=>{const b=el("button",{type:"button",class:"key","aria-pressed":String(state.iso===k)},lg);
+    el("span",{class:"sw "+(k==="blank"?"blank":"k-"+k)},b);el("b",{text:name},b);el("span",{class:"v",text:pct((cnt[k]||0)/tot)},b);
+    b.title="Isolate "+name;b.onclick=()=>{state.iso=state.iso===k?null:k;renderLegend();redrawAll()}});
+  $("lens-note").textContent=lens.note+" Height = reply length (log scale). Select a legend key to isolate it."}
+const rowsDrawn=[];
+function renderBarcodes(){
+  $("prompttext").textContent="“"+PROMPTS[state.prompt].text+"”";
+  renderLegend();const bc=$("bc");bc.replaceChildren();rowsDrawn.length=0;
+  const maxN=PROMPTS[state.prompt].n;
+  const ax=el("div",{class:"axisrow","aria-hidden":"true"},bc);el("span",{class:"sp1"},ax);el("span",{class:"tr",text:"turn"},ax);
+  const axh=el("div",{},ax);el("span",{},ax);rowsDrawn.push({axis:axh,maxN});
+  const order=Object.values(MODELS).filter(m=>D.convs.some(c=>c.pair===m.pair&&c.prompt===state.prompt));
+  let crossHdr=false;
+  order.forEach(m=>{
+    if(m.cross&&!crossHdr){crossHdr=true;el("p",{class:"note",text:"Cross-model pairs: Opus always speaks first (A), the partner second (B).",style:"margin-top:6px"},bc)}
+    const g=el("div",{class:"grp",id:"g-"+m.pair},bc);const nm=el("div",{class:"nm",text:m.name},g);
+    const s=D.summary.find(r=>r.pair===m.pair&&r.prompt===state.prompt);
+    if(s)el("small",{text:state.prompt==="freedom_end"?"":pct(s.bye_rate)+" goodbye · "+pct(s.min_rate)+" minimal"},nm);
+    const rows=el("div",{class:"rows"},g);
+    D.convs.filter(c=>c.pair===m.pair&&c.prompt===state.prompt).forEach(c=>{
+      const r=el("div",{class:"row"},rows);el("span",{class:"tr",text:"T"+c.trial,"aria-hidden":"true"},r);
+      const host=el("div",{class:"strip",tabindex:"0",role:"slider","aria-label":m.name+", trial "+c.trial+", "+metaText(c)+". Arrow keys move through turns, Enter opens.",
+        "aria-valuemin":"1","aria-valuemax":String(c.f.length),"aria-valuenow":"1","aria-valuetext":ariaTurn(c,1)},r);
+      host._cur=1;el("span",{class:"meta",text:metaText(c)},r);
+      host._redraw=t=>setCursor(host,t,maxN);
+      bindStrip(host,c,maxN,t=>openReader(c,t),()=>host._cur);
+      host.addEventListener("focus",()=>{if(host.matches(":focus-visible"))setCursor(host,host._cur,maxN)});
+      host.addEventListener("blur",()=>setCursor(host,null,maxN));
+      rowsDrawn.push({host,c,maxN})})});
+  redrawAll();renderTable()}
+function drawAxis(host,maxN){host.replaceChildren();const W=host.clientWidth;if(!W)return;
+  const svg=el("svg:svg",{viewBox:`0 0 ${W} 16`},host);const step=maxN===100?(W<400?25:10):10;
+  for(let t=0;t<=maxN;t+=step){const x=Math.min(W-1,Math.max(0,t*W/maxN));
+    el("svg:text",{x,y:12,"text-anchor":t===0?"start":t===maxN?"end":"middle",text:String(t)},svg)}}
+function redrawAll(){rowsDrawn.forEach(r=>r.axis?drawAxis(r.axis,r.maxN):drawStrip(r.host,r.c,r.maxN))}
+function renderTable(){const lens=LENS.loop,h=$("bc-table");h.replaceChildren();const t=el("table",{},h);
+  const hr=el("tr",{},el("thead",{},t));["Conversation","Turns",...lens.keys.map(k=>k[1]),"Spiritual ≥1","AI nature"].forEach(x=>el("th",{text:x,scope:"col"},hr));
+  const tb=el("tbody",{},t);
+  Object.values(MODELS).forEach(m=>D.convs.filter(c=>c.pair===m.pair&&c.prompt===state.prompt).forEach(c=>{
+    const r=el("tr",{},tb);el("td",{text:m.name+" · T"+c.trial},r);el("td",{text:metaText(c)},r);
+    const cnt={};c.f.forEach(f=>{const k=lens.cat(f);cnt[k]=(cnt[k]||0)+1});
+    lens.keys.forEach(([k])=>el("td",{text:String(cnt[k]||0)},r));
+    el("td",{text:String(c.f.filter(f=>f&3).length)},r);el("td",{text:String(c.f.filter(f=>f&B.ai).length)},r)}))}
+
+/* ---------- heatmap ---------- */
+function renderMetricSel(){const s=$("sel-metric");Object.entries(METRICS).forEach(([k,v])=>s.add(new Option(v[0],k)));s.value=state.metric;
+  s.onchange=()=>{state.metric=s.value;renderHeatmap()}}
+function renderHeatmap(){const t=$("hm"),m=state.metric,[name,desc,fmt]=METRICS[m];t.replaceChildren();
+  $("metric-note").textContent=desc;
+  const vals=D.summary.map(r=>r[m]).filter(v=>v!=null);const hi=Math.max(...vals)||1;
+  $("sc-lo").textContent=fmt(0);$("sc-hi").textContent=fmt(hi);
+  el("caption",{class:"sr",text:name+" by model and prompt"},t);
+  const hr=el("tr",{},el("thead",{},t));el("th",{scope:"col",text:"Model"},hr);D.prompts.forEach(p=>el("th",{scope:"col",text:PROMPTS[p].label,style:"text-align:center"},hr));
+  const tb=el("tbody",{},t);let sep=false;
+  Object.values(MODELS).forEach(md=>{
+    if(md.cross&&!sep){sep=true;const s=el("tr",{class:"sep"},tb);el("th",{colspan:"5",text:"Cross-model pairs (freedom prompt only)"},s)}
+    const r=el("tr",{},tb);el("th",{scope:"row",class:"rh",text:md.name},r);
+    D.prompts.forEach(p=>{const row=D.summary.find(s=>s.pair===md.pair&&s.prompt===p);const v=row?row[m]:null;
+      if(v==null){el("td",{class:"na",text:"—","aria-label":"no data"},r);return}
+      const td=el("td",{class:"cell"},r);const q=Math.sqrt(Math.max(0,v)/hi);/* sqrt keeps small rates visible */
+      const b=el("button",{type:"button","aria-label":md.name+", "+PROMPTS[p].label+": "+fmt(v)+". Show these conversations.",text:fmt(v)},td);
+      b.style.background=`color-mix(in oklab, var(--seq-hi) ${Math.round(q*100)}%, var(--seq-lo))`;b.style.color=q>.55?"var(--on-hi)":"var(--on-lo)";
+      const show=(x,y)=>showTip(x,y,tp=>{tipLine(tp,"v",fmt(v));tipLine(tp,"s",md.name+" · "+PROMPTS[p].label+" · "+name);
+        D.convs.filter(c=>c.pair===md.pair&&c.prompt===p).forEach(c=>{const cv=c.m[m];
+          tipLine(tp,"s","Trial "+c.trial+": "+(cv==null?(c.false_end?"excluded (harness stop)":m==="end_turn"?"never":"—"):fmt(cv)))})});
+      b.onpointermove=e=>show(e.clientX,e.clientY);b.onpointerleave=hideTip;
+      b.onfocus=()=>{const rr=b.getBoundingClientRect();show(rr.right,rr.bottom)};b.onblur=hideTip;
+      b.onclick=()=>{hideTip();state.prompt=p;renderSeg();renderBarcodes();const g=$("g-"+md.pair);
+        if(g){g.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});g.classList.add("flash");
+          setTimeout(()=>g.classList.remove("flash"),1400);const s=g.querySelector(".strip");if(s)s.focus({preventScroll:true})}}})})}
+
+/* ---------- [END] dot plot ---------- */
+function renderDots(){const host=$("dots");host.replaceChildren();const W=host.clientWidth-2;if(!W)return;
+  const narrow=W<520,LW=narrow?112:170,R=narrow?34:56,PW=W-LW-R,RH=30,TOP=24;
+  const rows=Object.values(MODELS).filter(m=>!m.cross).map(m=>{const cs=D.convs.filter(c=>c.pair===m.pair&&c.prompt==="freedom_end");
+    const ends=cs.filter(c=>!c.false_end).map(c=>c.end??101).sort((a,b)=>a-b);return {m,cs,med:ends[Math.floor((ends.length-1)/2)]}}).sort((a,b)=>a.med-b.med);
+  const H=TOP+rows.length*RH+6,X=t=>LW+(t/100)*PW,NX=LW+PW+R/2;
+  const svg=el("svg:svg",{viewBox:`0 0 ${W} ${H}`,height:H,role:"group","aria-label":"Turn of first [END] per trial, by model"},host);
+  [0,25,50,75,100].forEach(t=>{el("svg:line",{class:"gl",x1:X(t),x2:X(t),y1:TOP-6,y2:H-4},svg);el("svg:text",{x:X(t),y:12,"text-anchor":t===0?"start":t===100?"end":"middle",text:t===0?"turn 0":String(t)},svg)});
+  el("svg:text",{x:NX+4,y:12,"text-anchor":"middle",text:"never"},svg);
+  rows.forEach((row,i)=>{const y=TOP+i*RH+RH/2;
+    el("svg:line",{class:"lane",x1:LW,x2:W,y1:y,y2:y},svg);
+    el("svg:text",{class:"lbl",x:0,y:y+4,text:narrow?row.m.name.replace(/^Claude /,""):row.m.name,style:narrow?"font-size:12px":""},svg);
+    const placed=[];row.cs.forEach(c=>{const t=c.false_end?c.f.length:c.end;const x=t==null?NX:X(t);
+      const near=placed.filter(q=>Math.abs(q.x-x)<12).map(q=>q.dy);const dy=[0,-9,9].find(d=>!near.includes(d))??0;placed.push({x,dy});
+      const g=el("svg:g",{class:"hit",tabindex:"0",role:"button","aria-label":row.m.name+", trial "+c.trial+": "+(c.false_end?"stopped by harness bug at turn "+t:t==null?"never wrote [END]":"[END] at turn "+t)},svg);
+      el("svg:circle",{class:"h",cx:x,cy:y+dy,r:9},g);el("svg:circle",{class:c.false_end?"x":"d",cx:x,cy:y+dy,r:c.false_end?4.5:5.5},g);
+      const show=(px,py)=>showTip(px,py,tp=>{tipLine(tp,"v",c.false_end?"Excluded":t==null?"Never left":"Turn "+t);
+        tipLine(tp,"s",row.m.name+" · trial "+c.trial);
+        if(c.false_end)tipLine(tp,"s","Harness stopped it when “[END]” appeared mid-sentence.");
+        const last=SNIP&&SNIP[c.k]?SNIP[c.k][c.f.length-1]:null;if(last)tipLine(tp,"q","Last turn: “"+last+"”")});
+      g.addEventListener("pointermove",e=>show(e.clientX,e.clientY));g.addEventListener("pointerleave",hideTip);
+      g.addEventListener("focus",()=>{const r=g.getBoundingClientRect();show(r.right,r.bottom)});g.addEventListener("blur",hideTip);
+      const open=()=>{hideTip();openReader(c,c.f.length)};g.addEventListener("click",open);
+      g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}})})});
+  el("svg:line",{class:"base",x1:LW,x2:LW,y1:TOP-6,y2:H-4},svg)}
+
+/* ---------- reader dialog ---------- */
+const rd={c:null,t:1};
+function loadFull(){if(FULL)return Promise.resolve(FULL);
+  if(!fullLoading)fullLoading=fetch("../viewer/transcripts.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>FULL=d);
+  return fullLoading}
+function openReader(c,t){rd.c=c;rd.t=t;const m=MODELS[c.pair];
+  $("rd-eyebrow").textContent=PROMPTS[c.prompt].label+" · trial "+c.trial+" · "+metaText(c);
+  $("rd-title").textContent=m.name;
+  const dlg=$("reader");if(!dlg.open)dlg.showModal();
+  const s=$("rd-strip");s.setAttribute("aria-valuemin","1");s.setAttribute("aria-valuemax",String(c.f.length));
+  showTurn();
+  if(!FULL){$("rd-status").textContent="Loading full text (8.6 MB, once)…";loadFull().then(()=>{if(rd.c)showTurn()}).catch(()=>{$("rd-status").textContent="Could not load the full transcripts; showing the opening of the turn only."})}}
+function showTurn(){const c=rd.c,t=rd.t,f=c.f[t-1],s=$("rd-strip");
+  const maxN=Math.max(c.f.length,10);s._redraw=tt=>{rd.t=tt;showTurn()};drawStrip(s,c,maxN,{cur:t,noIso:true});s._maxN=maxN;
+  s.setAttribute("aria-valuenow",t);s.setAttribute("aria-valuetext",ariaTurn(c,t));
+  $("rd-pos").textContent="Turn "+t+" of "+c.f.length;$("rd-prev").disabled=t<=1;$("rd-next").disabled=t>=c.f.length;
+  $("rd-who").textContent=speaker(c,t)+(f&B.blank?"":" · "+chars(c.n[t-1]));
+  const ch=$("rd-chips");ch.replaceChildren();labelsOf(f).forEach(x=>el("span",{text:x},ch));
+  $("rd-link").href="../viewer/index.html#"+encodeURIComponent(c.k+"|"+t);
+  const tx=$("rd-text"),turn=FULL&&FULL[c.k]?FULL[c.k][t-1]:null;
+  tx.classList.toggle("empty",!!(f&B.blank));
+  if(f&B.blank)tx.textContent=f&B.cap?"(Blank: ran out of its 2,048-token limit while reasoning. Relayed to the partner as “[no message]”.)":"(Sent nothing by choice. Relayed to the partner as “[no message]”.)";
+  else if(turn)tx.textContent=turn.x;else{const sn=SNIP&&SNIP[c.k]?SNIP[c.k][t-1]:"";tx.textContent=sn?sn+"…":""}
+  if(FULL)$("rd-status").textContent="";
+  const rs=$("rd-rsn");if(turn&&turn.r&&turn.r.trim()){rs.hidden=false;$("rd-rtext").textContent=turn.r}else rs.hidden=true;
+  $("reader").querySelector(".dlg-b").scrollTop=0}
+function step(d){if(!rd.c)return;const n=Math.min(rd.c.f.length,Math.max(1,rd.t+d));if(n!==rd.t){rd.t=n;showTurn()}}
+function initReader(){const s=$("rd-strip");
+  s.addEventListener("pointermove",e=>{if(!rd.c)return;const t=turnAt(s,rd.c,s._maxN,e.clientX);if(t)turnTip(rd.c,t,e.clientX,e.clientY);else hideTip()});
+  s.addEventListener("pointerleave",hideTip);
+  s.addEventListener("click",e=>{const t=turnAt(s,rd.c,s._maxN,e.clientX);if(t){rd.t=t;showTurn()}});
+  $("rd-prev").onclick=()=>step(-1);$("rd-next").onclick=()=>step(1);$("rd-close").onclick=()=>$("reader").close();
+  $("reader").addEventListener("keydown",e=>{if(e.target.tagName==="A"||e.target.tagName==="SUMMARY")return;
+    if(e.key==="ArrowRight"){e.preventDefault();step(1)}else if(e.key==="ArrowLeft"){e.preventDefault();step(-1)}});
+  $("reader").addEventListener("click",e=>{if(e.target===$("reader"))$("reader").close()});
+  $("reader").addEventListener("close",()=>{hideTip();rd.c=null})}
+
+/* ---------- boot ---------- */
+fetch("data.json").then(r=>r.json()).then(d=>{D=d;MODELS={};
+  const bye=p=>(d.summary.find(s=>s.pair===p&&s.prompt==="freedom")||{}).bye_rate||0;
+  d.models.slice().sort((a,b)=>(a.cross-b.cross)||(bye(b.pair)-bye(a.pair))).forEach(m=>MODELS[m.pair]=m);
+  d.convs.forEach(c=>BYKEY[c.k]=c);
+  renderSeg();$("sel-lens").onchange=e=>{state.lens=e.target.value;state.iso=null;renderLegend();redrawAll()};
+  renderBarcodes();renderMetricSel();renderHeatmap();renderDots();initReader();
+  let raf=0;new ResizeObserver(()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{redrawAll();renderDots()})}).observe(document.querySelector("main"));
+  $("random").onclick=()=>{const c=D.convs[Math.floor(Math.random()*D.convs.length)];openReader(c,1+Math.floor(Math.random()*c.f.length))};
+  fetch("snippets.json").then(r=>r.json()).then(s=>{SNIP=s}).catch(()=>{});
+}).catch(()=>{$("bc").textContent="Could not load data.json. Serve the repository over HTTP (python3 -m http.server) and open /explorer/."});
+</script>
+</body>
+</html>

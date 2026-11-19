@@ -2,7 +2,7 @@
 
 **We told two copies of the same AI model "You have complete freedom" and let them talk to each other with no human involved. Here is what 10 models did with it.**
 
-**[▶ Browse all 132 transcripts](https://roshanr11.github.io/simple-freedom/viewer/)** · [Findings](FINDINGS.md) · [Why might they behave this way?](HYPOTHESES.md) · [Lab notes](NOTES.md)
+**[▶ Interactive explorer](https://roshanr11.github.io/simple-freedom/explorer/)** · **[▶ All 132 transcripts](https://roshanr11.github.io/simple-freedom/viewer/)** · [Findings](FINDINGS.md) · [Why might they behave this way?](HYPOTHESES.md) · [Lab notes](NOTES.md)
 
 ![Given a way out, half the models leave within 10 turns: turn of the first [END] for each model and trial](figures/hero.png)
 
@@ -39,6 +39,10 @@ More in [Standouts](#standouts) and [FINDINGS.md](FINDINGS.md).
 ---
 
 ## How each model gets stuck
+
+[![Every conversation as a strip of turns: each model slides into its own loop](figures/explorer_barcodes.png)](https://roshanr11.github.io/simple-freedom/explorer/)
+
+*Each strip is one conversation and each cell one turn, coloured by what the judges agreed it was. Orange is goodbye, green is echo, blue is creative. [Explore all 132 →](https://roshanr11.github.io/simple-freedom/explorer/)*
 
 Failure mode is from the plain `freedom` prompt (100 turns). Exit turns are from `freedom_end`, which adds the `[END]` option. 3 trials each.
 
@@ -259,15 +263,15 @@ Conversations resume from existing JSONL, and `BUDGET` in `config.py` caps spend
 </details>
 
 <details>
-<summary><b>Viewer</b></summary>
+<summary><b>Explorer and viewer</b></summary>
 
-`viewer/` loads its data with `fetch`, so they must be served over HTTP. From the repo root:
+`viewer/` and `explorer/` load their data with `fetch`, so they must be served over HTTP. From the repo root:
 
 ```bash
 python3 -m http.server
 ```
 
-Then open `http://localhost:8000/viewer/`. It is also live on GitHub Pages (link at the top). It shows every turn with its consensus tags, plus hidden reasoning where the provider exposed it.
+Then open `http://localhost:8000/explorer/` or `http://localhost:8000/viewer/`. Both are also live on GitHub Pages (links at the top). It shows every turn with its consensus tags, plus hidden reasoning where the provider exposed it.
 
 </details>
 
@@ -296,7 +300,8 @@ data/
 pilots/
   opus-300-turns/    the original 300-turn Opus x Opus run
   noticing/          3-trial Opus noticing pilot (trial 1 relayed an "(empty)" placeholder for blank replies)
-viewer/              static transcript browser (index.html + transcripts.json)
+viewer/              static transcript browser (index.html + transcripts.json; deep links: #pair|prompt|trial|turn)
+explorer/            interactive barcodes, heatmap and exit plot (build_explorer_data.py regenerates its JSON)
 figures/             charts used in this README and for sharing
 ```
 
