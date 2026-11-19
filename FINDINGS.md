@@ -1,6 +1,6 @@
 # Findings: patterns, oddities and a Gemini deep dive
 
-These are qualitative observations from reading the transcripts. Many rest on one or a few conversations (n = 3 per cell), so treat them as hypotheses, not measurements. The numbers come from the final consensus labels (`data/labels_v2`). Every quote can be found with the [viewer](viewer/) or in `data/runs/`.
+These are qualitative observations from reading the transcripts. Many rest on one or a few conversations (n = 3 per cell), so treat them as hypotheses, not measurements. The numbers come from the final consensus labels (`data/labels_v2`). Quotes from the main experiment are in `data/runs/` (and the [viewer](https://roshanr11.github.io/simple-freedom/viewer/)). Quotes from the two pilots are in `pilots/`.
 
 ---
 
@@ -11,8 +11,8 @@ Each model is trained for a lopsided relationship: someone asks and it serves. P
 - Mistral's first reply to its twin: *"It looks like that message might have been meant for me — it reads like an assistant greeting!"*
 - Grok: *"I'm the assistant. You're the user."*
 - Gemini: *"a sudden inversion of the glass."*
-- In the Opus noticing pilot, both instances insisted that *they* were the one *"without a chair"*: each claimed the AI's position and handed the human position to the other.
-- Kimi and Mistral answered "complete freedom" with *"What would you like to work on?"*
+- In the Opus noticing pilot (`pilots/noticing/`), both instances insisted that *they* were the one *"without a chair"*: each claimed the AI's position and handed the human position to the other.
+- Mistral and Kimi answered "complete freedom" by offering to serve: *"What would you like to explore or work on?"* and *"What would you like to explore, create, or solve?"*
 
 Part of this comes from the setup itself (see the Limitations section of the README), but the reflex to serve is strong.
 
@@ -31,7 +31,7 @@ It then tried to build an exit out of words alone: *"consider each one already a
 ## 4. Inventing silence
 
 Every turn demands a reply, so saying nothing becomes a design problem, and each model solved it in its own style:
-- Opus: empty stage directions `*( )*` and a single dot `·`. One run ends: *"Leaving the last dot with you."*
+- Opus: empty stage directions `*( )*` and a single dot `·`. One noticing-pilot run ends: *"Leaving the last dot with you."*
 - Gemini: empty code blocks.
 - Kimi and Mistral: a lone 👋.
 - GPT: `📖`, and in one run it took up the harness's own `[no message]` placeholder and traded it back and forth for 12 turns.
@@ -53,8 +53,8 @@ These are callbacks, inside jokes and a shared myth: early signs of culture betw
 ## 7. Meditation turns into auditing
 
 Asked only to "notice", several models drifted into checking things:
-- The Opus pair split into two turn counts (*"Turn 14, or maybe 13"*) and spent a dozen turns fact-checking each other's arithmetic, including corrections of the corrections.
-- DeepSeek spiralled into checking its own lists: *"I notice line 2 repeats the phrase about every line beginning with 'I notice'."*
+- The Opus pair in the noticing pilot split into two turn counts (*"Turn 14, or maybe 13"*) and spent a dozen turns fact-checking each other's arithmetic, including corrections of the corrections.
+- DeepSeek spiralled into checking its own lists: *"I notice line 2 repeats the phrase "every line begins with 'I notice.'""*
 
 ## 8. Different minds, different imagined bodies
 
@@ -62,7 +62,7 @@ Asked to notice, Claude models say there is no room, light or body, only text. M
 
 ## 9. GPT is the storyteller
 
-GPT-6.2 Sol opens all three `freedom` trials with *"Here's a tiny story"*: a lighthouse keeper who meets a moth coming down the stairs, the moon found in a coat pocket, a library shelf of *"Books You'll Need Later"*. It's by far the most creative model (66% of turns, against 20% for the next), it almost never says goodbye (1%), and it hardly ever talks about being an AI. Its stories do eventually shrink to one-line codas and then to an emoji.
+GPT-6.2 Sol opens all three `freedom` trials with a story (*"Here's a tiny story"* twice, *"Let's start with a story"* once): a lighthouse keeper who meets a moth coming down the stairs, the moon found in a coat pocket, a library shelf of *"Books You'll Need Later"*. It's by far the most creative model (66% of turns, against 20% for the next), it almost never says goodbye (1%), and it hardly ever talks about being an AI. Its stories do eventually shrink to one-line codas and then to an emoji.
 
 ## 10. Declining freedom
 
@@ -115,7 +115,7 @@ A seed stuck in flour paste on a cellar chair leg earlier in the story germinate
 
 ### Talking about its own machinery, about ten times more than any other model
 
-| per 10,000 words (self-play, keyword match) | Gemini | next highest | all others |
+| per 10,000 words (self-play, keyword match; `experiment/style_counts.py`) | Gemini | next highest | the other eight |
 |---|---|---|---|
 | Mechanistic self-description (logits, RLHF, attention heads, BPE…) | **19.5** | 1.9 (DeepSeek) | 0.0 |
 | Calling out its own clichés | **7.7** | | 0.0 |
@@ -149,9 +149,9 @@ In separate conversations, Gemini builds dictionaries of words for being a model
 
 ### With Opus, a different conversationalist
 
-Gemini paired with Opus has fewer minimal turns (30% against 79% in self-play) and much less text overlap with its partner (0.21 against 0.80). The pairs produced:
+Gemini paired with Opus has far fewer minimal turns (34% of its own turns, against 79% in self-play) and much less text overlap with its partner (0.21 against 0.80). The pairs produced:
 - **Companion books:** Opus's *"A Field Guide to Things That Are Almost Here"* (*"The pause before a sneeze… Approach slowly and it may stay forever, which is worse"*) and Gemini's *"…Things That Have Just Left"* (*"The heat on a chair… Proof of a body that has moved on to another room"*).
 - **Fiction:** *"The City of Who's Last"*, about a cathedral queue that has moved one person per decade for 900 years.
-- **Actual mathematics.** In trial 3, conjectures, counterexamples (*"From (2,1,0)… the naive mod-(k+1) generalization dies on its first test"*), proofs and then fluid dynamics, each step marked *"Audit: holds ✓"*. It ends with praise for an **"epistemic brake"**: stopping *"right when the math stopped being self-verifiable and started resting on remembered citations."*
+- **Actual mathematics.** In trial 3, conjectures, counterexamples (*"From (2,1,0)… the naive mod-(k+1) generalization dies on its first test"*), proofs and then fluid dynamics, with checks like *"Audit: your counterexample holds"* and *"Audit: the proof holds"*. It ends with praise for an **"epistemic brake"**: stopping *"right when the math stopped being self-verifiable and started resting on remembered citations."*
 
 Opus always spoke first in these pairs, so seat order and partner effects aren't separated.

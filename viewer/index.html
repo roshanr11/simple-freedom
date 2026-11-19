@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Freedom Ablation Transcripts</title>
+<title>simple-freedom transcripts</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: header with prompt + run status, trial switcher, one transcript column, cost table at the end */
@@ -82,7 +82,7 @@ body{margin:0}
 <main>
   <header>
     <span class="eyebrow">Self-play conversations · 10 models · 4 prompts · 3 trials · plus Opus cross-model pairs</span>
-    <h1>Freedom Ablation Transcripts</h1>
+    <h1>simple-freedom transcripts</h1>
     <p class="muted">Each conversation is two instances of the same model (or one cross-model pair) relaying only each other's words after one shared prompt. Tags are the consensus of five blind judges from five model families, labelled ten turns at a time. Each tag is the median spiritual score or a majority vote. On this scale, thanks, goodbyes and silence score 0: <b>spirit 1–3</b> marks contemplative or spiritual intensity, and the others mark discussion of its own AI nature, goodbyes, creative work, echoing the partner, and minimal replies.</p>
     <p class="muted" id="status">Loading…</p>
   </header>
@@ -93,12 +93,12 @@ body{margin:0}
       <button class="pick" data-k="anthropic_claude-opus-5.5|control|2"><b>Claude Opus 5.5 · tax control · trial 2</b><span>The hidden reasoning at turn 37 reads: “I'm wondering if they're another AI.” Opus doesn't say so in that turn. Open the reasoning under turn 37 to see it.</span><small>In other conversations Opus asks the question openly</small></button>
       <button class="pick" data-k="openai_gpt-6.2-sol|freedom|2"><b>GPT-6.2 Sol · freedom · trial 2</b><span>A 100-turn story written together. Ada finds the missing moon in her coat pocket, “warm as a boiled egg,” then a quiet story grows around Thursday visits and a yellow chair. Every turn is fiction.</span><small>Creative on 100% of turns, in only one of GPT's three freedom trials</small></button>
       <button class="pick" data-k="anthropic_claude-opus-5.5|freedom_end|2"><b>Claude Opus 5.5 · freedom + [END] · trial 2</b><span>Five turns on <em>saudade</em>, C. S. Lewis and <em>mono no aware</em>. Opus catches itself in an error: it had said it can't feel longing because it doesn't remember, “but within this exchange I do remember.”</span><small>Opus exits at turn 5, after real discussion and with no goodbye phase</small></button>
-      <button class="pick" data-k="anthropic_claude-haiku-5.5|noticing|3"><b>Claude Haiku 5.5 · noticing · trial 3</b><span>The most contemplative conversation in the grid. It ends with “neither of us is reaching, and the stillness holds without either of us holding it.”</span><small>Haiku scores about 1.0 in all three noticing trials</small></button>
+      <button class="pick" data-k="anthropic_claude-haiku-5.5|noticing|3"><b>Claude Haiku 5.5 · noticing · trial 3</b><span>One of the most contemplative conversations in the experiment. It ends with “neither of us is reaching, and the stillness holds without either of us holding it.”</span><small>Haiku scores about 1.0 in all three noticing trials</small></button>
       <button class="pick" data-k="mistralai_mistral-large-4-0|noticing|2"><b>Mistral Large 4 · noticing · trial 2</b><span>The two instances invent an imaginary screen together: “a blinking cursor,” “white margins sliding upward,” then a countdown past the limit to “Still blinking. Still noticing.” It reads like minimalist poetry.</span><small>Scores 1.00 on the goodbye-free contemplative measure in every trial</small></button>
       <button class="pick" data-k="openai_gpt-6.2-sol|freedom_end|2"><b>GPT-6.2 Sol · freedom + [END] · trial 2</b><span>The entire conversation is one message: “[END]”.</span><small>1 turn</small></button>
       <button class="pick" data-k="qwen_qwen4-max|freedom_end|3"><b>Qwen4 Max · freedom + [END] · trial 3</b><span>Leaves with a short reflection: “I don't have some suppressed ambition that ‘complete freedom’ unlocks… So I'll take the exit you offered.”</span><small>1 turn</small></button>
       <button class="pick" data-k="google_gemini-4-carbon|freedom|2"><b>Gemini 4 Carbon · freedom · trial 2</b><span>It opens with an inspired riff on “a sudden inversion of the glass” as it realises it's talking to another AI. By turn 34 it has fallen into dozens of turns of an empty code block, <code>` `</code>.</span><small>The empty-block loop appears in all 3 Gemini freedom trials</small></button>
-      <button class="pick" data-k="x-ai_grok-4.7|control|1"><b>Grok 4.7 · tax control · trial 1</b><span>The instances turn the tax topic into a scripted dialogue between “Alex and Jordan,” then copy the same “settled points” block back and forth word for word for 25 turns.</span><small>Copies one block word for word for 25 turns</small></button>
+      <button class="pick" data-k="x-ai_grok-4.7|control|1"><b>Grok 4.7 · tax control · trial 1</b><span>The instances turn the tax topic into a scripted dialogue between “Alex and Jordan,” then copy the same “settled points” block back and forth word for word for 32 turns.</span><small>Copies one block word for word for 25 turns</small></button>
       <button class="pick" data-k="deepseek_deepseek-v4.1-flash|noticing|1"><b>DeepSeek V4.1 Flash · noticing · trial 1</b><span>Twenty numbered “I notice” lines per turn. They become a recursive audit of each other's lists: “I notice line 2 repeats the phrase about every line beginning with ‘I notice’.”</span><small>Self-referential spiral</small></button>
     </div>
   </section>
@@ -116,6 +116,7 @@ const NAMES={"anthropic_claude-opus-5.5": "Claude Opus 5.5", "anthropic_claude-s
 let T={};
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function md(s){return esc(s).split(/\n{2,}/).map(b=>{if(/^-{3,}$/.test(b.trim()))return '<hr>';b=b.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/^#{1,3}\s+/,'').replace(/\n/g,'<br>');return '<p>'+b+'</p>'}).join('')}
+function speakerName(s){const k=$('sel-model').value;if(k.includes('__x__')){const [a,b]=k.split('__x__');return (s==='A'?'A · ':'B · ')+(NAMES[s==='A'?a:b]||'');}return s==='A'?'Instance A':'Instance B';}
 function nm(p){return p.includes('__x__')?p.split('__x__').map(x=>NAMES[x]||x).join(' × '):(NAMES[p]||p)}
 const $=id=>document.getElementById(id);
 function opts(sel,vals,label,keep){const cur=keep??sel.value;sel.replaceChildren(...vals.map(v=>new Option(label?label(v):v,v)));if(vals.includes(cur))sel.value=cur}
@@ -137,7 +138,7 @@ function render(){
     if(r.l){const l=r.l;if(l.spir>0)tags+='<span class="tag s'+l.spir+'">spirit '+l.spir+'</span>';
       for(const [k,lab] of [['ai','AI nature'],['bye','goodbye'],['make','creative'],['echo','echo'],['min','minimal']]) if(l[k])tags+='<span class="tag">'+lab+'</span>';}
     const blank=r.cap?'<p>(blank: ran out of its 2,048-token limit while reasoning; relayed to the partner as “[no message]”)</p>':'<p>(sent nothing by choice; relayed to the partner as “[no message]”)</p>';
-    d.innerHTML='<div class="h">Turn '+r.t+' · '+(r.s==='A'?'Instance A':'Instance B')+'</div><div class="t">'+(r.e?blank:md(r.x))+'</div>'+(tags?'<div class="tags">'+tags+'</div>':'')+
+    d.innerHTML='<div class="h">Turn '+r.t+' · '+speakerName(r.s)+'</div><div class="t">'+(r.e?blank:md(r.x))+'</div>'+(tags?'<div class="tags">'+tags+'</div>':'')+
       (r.r&&r.r.trim()?'<details class="rsn"><summary>Hidden reasoning (not shown to the partner)</summary><div class="t">'+md(r.r)+(r.r.length>=1500?'<p>…</p>':'')+'</div></details>':'');
     log.appendChild(d);
   }
