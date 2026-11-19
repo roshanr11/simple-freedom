@@ -40,7 +40,7 @@ More in [Standouts](#standouts) and [FINDINGS.md](FINDINGS.md).
 
 ## How each model gets stuck
 
-[![Every conversation as a strip of turns: each model slides into its own loop](figures/explorer_barcodes.png)](https://roshanr11.github.io/simple-freedom/explorer/)
+[![Every conversation as a strip of turns: each model drifts into its own habit](figures/barcodes.png)](https://roshanr11.github.io/simple-freedom/explorer/)
 
 *Each strip is one conversation and each cell one turn, coloured by what the judges agreed it was. Orange is goodbye, green is echo, blue is creative. [Explore all 132 →](https://roshanr11.github.io/simple-freedom/explorer/)*
 
@@ -291,6 +291,7 @@ experiment/          pipeline (Python standard library only)
   reasoning_notes.py hidden-reasoning evidence
   style_counts.py    keyword counts behind the FINDINGS style table
   make_figures.py    figures/*.png and *.svg (stdlib SVG; PNGs via headless Chrome)
+  make_barcode_figure.py  figures/barcodes.html (render to PNG at 1200x675)
 data/
   runs/<model>/<prompt>/trial<N>.jsonl   one line per turn: turn, speaker, model, text, empty, reasoning, usage, ended
   labels_v2/<judge>/...                  final labels (first line = metadata, then {"label": {...}} per turn)
